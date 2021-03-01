@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"k8s.io/apimachinery/pkg/util/sets"
@@ -62,42 +63,149 @@ func main() {
 	pspForDBs := map[DB]sets.String{}
 	pspStore := map[string]*unstructured.Unstructured{}
 
+	// active versions
+	activeDBVersions := map[string][]string{}
+	// backupTask -> db version
+	backupTaskStore := map[string][]string{}
+	// recoveryTask -> db version
+	restoreTaskStore := map[string][]string{}
+
 	for _, obj := range resources {
 		gv, err := schema.ParseGroupVersion(obj.GetAPIVersion())
 		if err != nil {
 			panic(err)
 		}
 		if gv.Group == "catalog.kubedb.com" {
+			dbKind := strings.TrimSuffix(obj.GetKind(), "Version")
+			deprecated, _, _ := unstructured.NestedBool(obj.Object, "spec", "deprecated")
+
 			version, _, err := unstructured.NestedString(obj.Object, "spec", "version")
 			if err != nil {
 				panic(err)
 			}
-			key := DbVersion{
+			dbverKey := DbVersion{
 				Group:   gv.Group,
 				Kind:    obj.GetKind(),
 				Version: version,
 			}
-			dbStore[key] = append(dbStore[key], obj)
+			dbStore[dbverKey] = append(dbStore[dbverKey], obj)
 
 			pspName, _, err := unstructured.NestedString(obj.Object, "spec", "podSecurityPolicies", "databasePolicyName")
 			if err != nil {
 				panic(err)
 			}
 			if pspName != "" {
-				key2 := DB{
+				dbKey := DB{
 					Group: gv.Group,
 					Kind:  obj.GetKind(),
 				}
-				if _, ok := pspForDBs[key2]; !ok {
-					pspForDBs[key2] = sets.NewString()
+				if _, ok := pspForDBs[dbKey]; !ok {
+					pspForDBs[dbKey] = sets.NewString()
 				}
-				pspForDBs[key2].Insert(pspName)
+				pspForDBs[dbKey].Insert(pspName)
+			}
+
+			if !deprecated {
+				activeDBVersions[dbKind] = append(activeDBVersions[dbKind], obj.GetName())
+
+				backupTask, _, _ := unstructured.NestedString(obj.Object, "spec", "stash", "addon", "backupTask", "name")
+				if backupTask != "" {
+					backupTaskStore[backupTask] = append(backupTaskStore[backupTask], obj.GetName())
+				}
+				restoreTask, _, _ := unstructured.NestedString(obj.Object, "spec", "stash", "addon", "restoreTask", "name")
+				if restoreTask != "" {
+					restoreTaskStore[backupTask] = append(restoreTaskStore[backupTask], obj.GetName())
+				}
 			}
 		} else if gv.Group == "policy" {
 			if _, ok := pspStore[obj.GetName()]; ok {
 				panic("duplicate PSP name " + obj.GetName())
 			}
 			pspStore[obj.GetName()] = obj
+		}
+	}
+
+	{
+		for k, v := range activeDBVersions {
+			versions, err := semvers.SortVersions(v)
+			if err != nil {
+				panic(err)
+			}
+			activeDBVersions[k] = versions
+		}
+
+		data, err := json.MarshalIndent(activeDBVersions, "", "  ")
+		if err != nil {
+			panic(err)
+		}
+
+		filename := filepath.Join(dir, "active_dbs.json")
+		err = os.MkdirAll(filepath.Dir(filename), 0755)
+		if err != nil {
+			panic(err)
+		}
+
+		err = ioutil.WriteFile(filename, data, 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	{
+		ds := map[string]string{}
+
+		for k, v := range backupTaskStore {
+			versions, err := semvers.SortVersions(v)
+			if err != nil {
+				panic(err)
+			}
+			backupTaskStore[k] = versions
+			ds[k] = versions[0]
+		}
+
+		data, err := json.MarshalIndent(ds, "", "  ")
+		if err != nil {
+			panic(err)
+		}
+
+		filename := filepath.Join(dir, "backup_tasks.json")
+		err = os.MkdirAll(filepath.Dir(filename), 0755)
+		if err != nil {
+			panic(err)
+		}
+
+		err = ioutil.WriteFile(filename, data, 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
+
+	{
+		ds := map[string]string{}
+
+		for k, v := range restoreTaskStore {
+			versions, err := semvers.SortVersions(v)
+			if err != nil {
+				panic(err)
+			}
+			restoreTaskStore[k] = versions
+			ds[k] = versions[0]
+		}
+
+		data, err := json.MarshalIndent(ds, "", "  ")
+		if err != nil {
+			panic(err)
+		}
+
+		filename := filepath.Join(dir, "restore_tasks.json")
+		err = os.MkdirAll(filepath.Dir(filename), 0755)
+		if err != nil {
+			panic(err)
+		}
+
+		err = ioutil.WriteFile(filename, data, 0644)
+		if err != nil {
+			panic(err)
 		}
 	}
 
@@ -182,7 +290,7 @@ func main() {
 }
 
 func allDeprecated(objs []*unstructured.Unstructured) bool {
-	for _, obj := range objs{
+	for _, obj := range objs {
 		d, _, _ := unstructured.NestedBool(obj.Object, "spec", "deprecated")
 		if !d {
 			return false
