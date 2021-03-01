@@ -5,16 +5,18 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"k8s.io/apimachinery/pkg/util/sets"
 	"os"
 	"path/filepath"
 	"sort"
 	"strings"
+	"text/template"
 
 	"github.com/Masterminds/semver"
+	"github.com/Masterminds/sprig"
 	shell "github.com/codeskyblue/go-sh"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/util/sets"
 	"kmodules.xyz/catalog-checker/semvers"
 	"kmodules.xyz/client-go/tools/parser"
 	"kmodules.xyz/resource-metadata/hub"
@@ -267,39 +269,86 @@ func main() {
 					panic(err)
 				}
 				for prop := range spec {
-					img, ok, _ := unstructured.NestedString(obj.Object, "spec", prop, "image")
-					if ok {
-						newimg := `{{ .Values.image.registry }}/` + strings.Split(img, "/")[1]
-						unstructured.SetNestedField(obj.Object, newimg, "spec", prop, "image")
+
+					templatizeRegistry := func (field string) {
+						img, ok, _ := unstructured.NestedString(obj.Object, "spec", prop, field)
+						if ok {
+							newimg := `{{ .Values.image.registry }}/` + strings.Split(img, "/")[1]
+							unstructured.SetNestedField(obj.Object, newimg, "spec", prop, field)
+						}
 					}
+
+					templatizeRegistry("image")
+					templatizeRegistry("yqImage")
 				}
 			}
 
-			var buf bytes.Buffer
-			for i, obj := range v {
-				if i > 0 {
-					buf.WriteString("\n---\n")
+			{
+				var buf bytes.Buffer
+				for i, obj := range v {
+					if i > 0 {
+						buf.WriteString("\n---\n")
+					}
+					data, err := yaml.Marshal(obj)
+					if err != nil {
+						panic(err)
+					}
+					buf.Write(data)
 				}
-				data, err := yaml.Marshal(obj)
+
+				dbKind := strings.TrimSuffix(k.Kind, "Version")
+				filename := filepath.Join(dir, "templates", strings.ToLower(dbKind), fmt.Sprintf("%s-%s.yaml", strings.ToLower(dbKind), k.Version))
+				if allDeprecated(v) {
+					filename = filepath.Join(dir, "templates", strings.ToLower(dbKind), fmt.Sprintf("deprecated-%s-%s.yaml", strings.ToLower(dbKind), k.Version))
+				}
+				err = os.MkdirAll(filepath.Dir(filename), 0755)
 				if err != nil {
 					panic(err)
 				}
-				buf.Write(data)
+
+				err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
+				if err != nil {
+					panic(err)
+				}
 			}
 
-			dbKind := strings.TrimSuffix(k.Kind, "Version")
-			filename := filepath.Join(dir, "charts", "kubedb-catalog", "templates", strings.ToLower(dbKind), fmt.Sprintf("%s-%s.yaml", strings.ToLower(dbKind), k.Version))
-			if allDeprecated(v) {
-				filename = filepath.Join(dir, "charts", "kubedb-catalog", "templates", strings.ToLower(dbKind), fmt.Sprintf("deprecated-%s-%s.yaml", strings.ToLower(dbKind), k.Version))
-			}
-			err = os.MkdirAll(filepath.Dir(filename), 0755)
-			if err != nil {
-				panic(err)
-			}
+			{
+				dbKind := strings.TrimSuffix(k.Kind, "Version")
 
-			err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
-			if err != nil {
-				panic(err)
+				var buf bytes.Buffer
+				for i, obj := range v {
+					if i > 0 {
+						buf.WriteString("\n---\n")
+					}
+
+					data := map[string]interface{}{
+						"key" : strings.ToLower(dbKind),
+						"object": obj.Object,
+					}
+					localTplFile := "/home/tamal/go/src/kmodules.xyz/catalog-checker/gen-chart/template-dbver.yaml"
+					funcMap := sprig.TxtFuncMap()
+					funcMap["toYaml"] = toYAML
+					funcMap["toJson"] = toJSON
+					tpl := template.Must(template.New(filepath.Base(localTplFile)).Funcs(funcMap).ParseFiles(localTplFile))
+					err = tpl.Execute(&buf, &data)
+					if err != nil {
+						panic(err)
+					}
+				}
+
+				filename := filepath.Join(dir, "charts", "kubedb-catalog", "templates", strings.ToLower(dbKind), fmt.Sprintf("%s-%s.yaml", strings.ToLower(dbKind), k.Version))
+				if allDeprecated(v) {
+					filename = filepath.Join(dir, "charts", "kubedb-catalog", "templates", strings.ToLower(dbKind), fmt.Sprintf("deprecated-%s-%s.yaml", strings.ToLower(dbKind), k.Version))
+				}
+				err = os.MkdirAll(filepath.Dir(filename), 0755)
+				if err != nil {
+					panic(err)
+				}
+
+				err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
+				if err != nil {
+					panic(err)
+				}
 			}
 		}
 	}
@@ -322,7 +371,7 @@ func main() {
 		}
 
 		dbKind := strings.TrimSuffix(k.Kind, "Version")
-		filename := filepath.Join(dir, strings.ToLower(dbKind), fmt.Sprintf("%s-psp.yaml", strings.ToLower(dbKind)))
+		filename := filepath.Join(dir, "raw", strings.ToLower(dbKind), fmt.Sprintf("%s-psp.yaml", strings.ToLower(dbKind)))
 		err = os.MkdirAll(filepath.Dir(filename), 0755)
 		if err != nil {
 			panic(err)
@@ -343,4 +392,30 @@ func allDeprecated(objs []*unstructured.Unstructured) bool {
 		}
 	}
 	return true
+}
+
+// toYAML takes an interface, marshals it to yaml, and returns a string. It will
+// always return a string, even on marshal error (empty string).
+//
+// This is designed to be called from a template.
+func toYAML(v interface{}) string {
+	data, err := yaml.Marshal(v)
+	if err != nil {
+		// Swallow errors inside of a template.
+		return ""
+	}
+	return strings.TrimSuffix(string(data), "\n")
+}
+
+// toJSON takes an interface, marshals it to json, and returns a string. It will
+// always return a string, even on marshal error (empty string).
+//
+// This is designed to be called from a template.
+func toJSON(v interface{}) string {
+	data, err := json.Marshal(v)
+	if err != nil {
+		// Swallow errors inside of a template.
+		return ""
+	}
+	return string(data)
 }

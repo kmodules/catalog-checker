@@ -1,14 +1,10 @@
+{{ if and .Values.catalog.proxysql (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ProxySQLVersion
 metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 2.0.4
-  namespace: default
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   exporter:
     image: '{{ .Values.image.registry }}/proxysql-exporter:v1.1.0'
@@ -17,3 +13,4 @@ spec:
   proxysql:
     image: '{{ .Values.image.registry }}/proxysql:v2.0.4'
   version: 2.0.4
+{{- end }}

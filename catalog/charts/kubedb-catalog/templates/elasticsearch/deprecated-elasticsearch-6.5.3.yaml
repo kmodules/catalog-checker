@@ -1,14 +1,10 @@
+{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
+  name: 6.5
   labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
-  name: "6.5"
-  namespace: default
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: SearchGuard
   db:
@@ -18,25 +14,22 @@ spec:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.0.2'
   initContainer:
     image: '{{ .Values.image.registry }}/busybox'
-    yqImage: kubedb/yq:2.4.0
+    yqImage: '{{ .Values.image.registry }}/yq:2.4.0'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   tools:
     image: '{{ .Values.image.registry }}/elasticsearch-tools:6.5'
   version: 6.5.3
+{{- end }}
 
 ---
+{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 6.5.3
-  namespace: default
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: SearchGuard
   db:
@@ -46,9 +39,10 @@ spec:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.0.2'
   initContainer:
     image: '{{ .Values.image.registry }}/busybox'
-    yqImage: kubedb/yq:2.4.0
+    yqImage: '{{ .Values.image.registry }}/yq:2.4.0'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   tools:
     image: '{{ .Values.image.registry }}/elasticsearch-tools:6.5.3'
   version: 6.5.3
+{{- end }}

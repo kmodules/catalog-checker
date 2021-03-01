@@ -1,14 +1,10 @@
+{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 7.5.2-searchguard
-  namespace: default
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: SearchGuard
   db:
@@ -17,7 +13,7 @@ spec:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
   initContainer:
     image: '{{ .Values.image.registry }}/busybox:1.32.0'
-    yqImage: kubedb/elasticsearch-init:7.5.2-searchguard
+    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:7.5.2-searchguard'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
@@ -30,19 +26,16 @@ spec:
       restoreTask:
         name: elasticsearch-restore-7.3.2-v6
   version: 7.5.2
+{{- end }}
 
 ---
+{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 7.5.2-searchguard-v1
-  namespace: default
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: SearchGuard
   db:
@@ -51,7 +44,7 @@ spec:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
   initContainer:
     image: '{{ .Values.image.registry }}/toybox:0.8.4'
-    yqImage: kubedb/elasticsearch-init:7.5.2-searchguard-v1
+    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:7.5.2-searchguard-v1'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
@@ -64,19 +57,16 @@ spec:
       restoreTask:
         name: elasticsearch-restore-7.3.2-v6
   version: 7.5.2
+{{- end }}
 
 ---
+{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 7.5.2-xpack
-  namespace: default
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: X-Pack
   db:
@@ -85,7 +75,7 @@ spec:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
   initContainer:
     image: '{{ .Values.image.registry }}/busybox:1.32.0'
-    yqImage: kubedb/elasticsearch-init:7.5.2-xpack
+    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:7.5.2-xpack'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
@@ -95,19 +85,16 @@ spec:
       restoreTask:
         name: elasticsearch-restore-7.3.2-v6
   version: 7.5.2
+{{- end }}
 
 ---
+{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 7.5.2-xpack-v1
-  namespace: default
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: X-Pack
   db:
@@ -116,7 +103,7 @@ spec:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
   initContainer:
     image: '{{ .Values.image.registry }}/toybox:0.8.4'
-    yqImage: kubedb/elasticsearch-init:7.5.2-xpack-v1
+    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:7.5.2-xpack-v1'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
@@ -126,3 +113,4 @@ spec:
       restoreTask:
         name: elasticsearch-restore-7.3.2-v6
   version: 7.5.2
+{{- end }}

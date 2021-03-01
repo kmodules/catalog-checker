@@ -1,17 +1,14 @@
+{{ if and .Values.catalog.pgbouncer (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PgBouncerVersion
 metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 1.8.1
-  namespace: default
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   exporter:
     image: '{{ .Values.image.registry }}/pgbouncer_exporter:v0.1.1'
   server:
     image: '{{ .Values.image.registry }}/pgbouncer:1.8.1'
   version: 1.8.1
+{{- end }}

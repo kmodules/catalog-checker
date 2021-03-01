@@ -1,0 +1,19 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: EtcdVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 3.2.13
+  namespace: default
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/etcd:v3.2.13'
+  exporter:
+    image: '{{ .Values.image.registry }}/etcd:v3.2.13'
+  tools:
+    image: '{{ .Values.image.registry }}/etcd-tools:3.2.13'
+  version: 3.2.13

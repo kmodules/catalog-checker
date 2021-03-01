@@ -1,14 +1,10 @@
+{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 6.8.10-xpack
-  namespace: default
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: X-Pack
   db:
@@ -17,7 +13,7 @@ spec:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
   initContainer:
     image: '{{ .Values.image.registry }}/busybox:1.32.0'
-    yqImage: kubedb/elasticsearch-init:6.8.10-xpack
+    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:6.8.10-xpack'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
@@ -27,19 +23,16 @@ spec:
       restoreTask:
         name: elasticsearch-restore-6.8.0-v6
   version: 6.8.10
+{{- end }}
 
 ---
+{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 6.8.10-xpack-v1
-  namespace: default
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: X-Pack
   db:
@@ -48,7 +41,7 @@ spec:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
   initContainer:
     image: '{{ .Values.image.registry }}/toybox:0.8.4'
-    yqImage: kubedb/elasticsearch-init:6.8.10-xpack-v1
+    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:6.8.10-xpack-v1'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
@@ -58,3 +51,4 @@ spec:
       restoreTask:
         name: elasticsearch-restore-6.8.0-v6
   version: 6.8.10
+{{- end }}

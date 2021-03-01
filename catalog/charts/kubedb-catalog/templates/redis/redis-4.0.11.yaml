@@ -1,14 +1,10 @@
+{{ if and .Values.catalog.redis (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RedisVersion
 metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 4.0.11
-  namespace: default
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
     image: '{{ .Values.image.registry }}/redis:4.0.11'
@@ -17,3 +13,4 @@ spec:
   podSecurityPolicies:
     databasePolicyName: redis-db
   version: 4.0.11
+{{- end }}

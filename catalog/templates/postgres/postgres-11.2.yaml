@@ -1,0 +1,56 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: "11.2"
+  namespace: default
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/postgres:11.2'
+  exporter:
+    image: '{{ .Values.image.registry }}/postgres_exporter:v0.4.7'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-11.9.0-v4
+      restoreTask:
+        name: postgres-restore-11.9.0-v4
+  tools:
+    image: '{{ .Values.image.registry }}/postgres-tools:11.2'
+  version: "11.2"
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 11.2-v1
+  namespace: default
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/postgres:11.2-v1'
+  exporter:
+    image: '{{ .Values.image.registry }}/postgres_exporter:v0.4.7'
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  stash:
+    addon:
+      backupTask:
+        name: postgres-backup-11.9.0-v4
+      restoreTask:
+        name: postgres-restore-11.9.0-v4
+  tools:
+    image: '{{ .Values.image.registry }}/postgres-tools:11.2'
+  version: "11.2"

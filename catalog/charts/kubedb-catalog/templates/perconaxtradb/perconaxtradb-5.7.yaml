@@ -1,14 +1,10 @@
+{{ if and .Values.catalog.perconaxtradb (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PerconaXtraDBVersion
 metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 5.7-cluster
-  namespace: default
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
     image: '{{ .Values.image.registry }}/percona-xtradb-cluster:5.7'
@@ -25,19 +21,16 @@ spec:
       restoreTask:
         name: percona-xtradb-restore-5.7.0-v1
   version: "5.7"
+{{- end }}
 
 ---
+{{ if and .Values.catalog.perconaxtradb (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PerconaXtraDBVersion
 metadata:
+  name: 5.7
   labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
-  name: "5.7"
-  namespace: default
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
     image: '{{ .Values.image.registry }}/percona:5.7'
@@ -54,3 +47,4 @@ spec:
       restoreTask:
         name: percona-xtradb-restore-5.7.0-v1
   version: "5.7"
+{{- end }}

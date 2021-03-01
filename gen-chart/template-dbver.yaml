@@ -1,8 +1,10 @@
-{{"{{- with .Values."}}{{ .key }} {{"}}"}}
+{{"{{ if and .Values.catalog."}}{{ .key }}{{" (not .Values.skipDeprecated) }}"}}
 apiVersion: {{ .object.apiVersion }}
 kind: {{ .object.kind }}
-{{- range (omit .object "apiVersion" "kind" | keys | sortAlpha) }}
-{{ . }}:
-  {{"{{- ."}}{{ . }}{{" | toYaml | nindent 2 }}"}}
-{{- end }}
+metadata:
+  name: {{ .object.metadata.name }}
+  labels:
+    {{"{{- include \"kubedb-catalog.labels\" . | nindent 4 }}"}}
+spec:
+  {{- .object.spec | toYaml | nindent 2 }}
 {{"{{- end }}"}}

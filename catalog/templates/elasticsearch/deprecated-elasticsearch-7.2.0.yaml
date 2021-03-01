@@ -1,0 +1,54 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: "7.2"
+  namespace: default
+spec:
+  authPlugin: X-Pack
+  db:
+    image: '{{ .Values.image.registry }}/elasticsearch:7.2'
+  deprecated: true
+  exporter:
+    image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.0.2'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox'
+    yqImage: '{{ .Values.image.registry }}/yq:2.4.0'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  tools:
+    image: '{{ .Values.image.registry }}/elasticsearch-tools:7.2'
+  version: 7.2.0
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 7.2.0
+  namespace: default
+spec:
+  authPlugin: X-Pack
+  db:
+    image: '{{ .Values.image.registry }}/elasticsearch:7.2.0'
+  deprecated: true
+  exporter:
+    image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.0.2'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox'
+    yqImage: '{{ .Values.image.registry }}/yq:2.4.0'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  tools:
+    image: '{{ .Values.image.registry }}/elasticsearch-tools:7.2.0'
+  version: 7.2.0

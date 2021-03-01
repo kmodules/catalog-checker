@@ -1,14 +1,10 @@
+{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
+  name: 3.4
   labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
-  name: "3.4"
-  namespace: default
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
     image: '{{ .Values.image.registry }}/mongo:3.4'
@@ -24,19 +20,16 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/mongo-tools:3.4'
   version: "3.4"
+{{- end }}
 
 ---
+{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 3.4-v1
-  namespace: default
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
     image: '{{ .Values.image.registry }}/mongo:3.4-v1'
@@ -52,19 +45,16 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/mongo-tools:3.4-v2'
   version: "3.4"
+{{- end }}
 
 ---
+{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 3.4-v2
-  namespace: default
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
     image: '{{ .Values.image.registry }}/mongo:3.4-v2'
@@ -80,19 +70,16 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/mongo-tools:3.4-v2'
   version: "3.4"
+{{- end }}
 
 ---
+{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 3.4-v3
-  namespace: default
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
     image: '{{ .Values.image.registry }}/mongo:3.4-v3'
@@ -108,3 +95,4 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/mongo-tools:3.4-v3'
   version: "3.4"
+{{- end }}

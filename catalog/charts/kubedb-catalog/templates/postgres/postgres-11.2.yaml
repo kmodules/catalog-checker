@@ -1,14 +1,10 @@
+{{ if and .Values.catalog.postgres (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
+  name: 11.2
   labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
-  name: "11.2"
-  namespace: default
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
     image: '{{ .Values.image.registry }}/postgres:11.2'
@@ -25,19 +21,16 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/postgres-tools:11.2'
   version: "11.2"
+{{- end }}
 
 ---
+{{ if and .Values.catalog.postgres (not .Values.skipDeprecated) }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 11.2-v1
-  namespace: default
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   db:
     image: '{{ .Values.image.registry }}/postgres:11.2-v1'
@@ -54,3 +47,4 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/postgres-tools:11.2'
   version: "11.2"
+{{- end }}

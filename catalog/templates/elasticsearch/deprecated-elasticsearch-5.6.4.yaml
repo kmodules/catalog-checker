@@ -1,0 +1,54 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 5.6.4
+  namespace: default
+spec:
+  authPlugin: SearchGuard
+  db:
+    image: '{{ .Values.image.registry }}/elasticsearch:5.6.4'
+  deprecated: true
+  exporter:
+    image: '{{ .Values.image.registry }}/operator:0.8.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox'
+    yqImage: '{{ .Values.image.registry }}/yq:2.4.0'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  tools:
+    image: '{{ .Values.image.registry }}/elasticsearch-tools:5.6.4'
+  version: 5.6.4
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 5.6.4-v1
+  namespace: default
+spec:
+  authPlugin: SearchGuard
+  db:
+    image: '{{ .Values.image.registry }}/elasticsearch:5.6.4-v1'
+  deprecated: true
+  exporter:
+    image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.0.2'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox'
+    yqImage: '{{ .Values.image.registry }}/yq:2.4.0'
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  tools:
+    image: '{{ .Values.image.registry }}/elasticsearch-tools:5.6.4-v2'
+  version: 5.6.4

@@ -1,7 +1,11 @@
-{{"{{- with .Values."}}{{ .key }} {{"}}"}}
+{{"{{ if .Values.catalog."}}{{ .key }}{{" }}"}}
 apiVersion: {{ .object.apiVersion }}
 kind: {{ .object.kind }}
-{{- range (omit .object "apiVersion" "kind" | keys | sortAlpha) }}
+metadata:
+  name: {{ .object.metadata.name }}
+  labels:
+    {{"{{- include 'kubedb-catalog.labels' . | nindent 4 }}"}}
+{{- range (omit .object "apiVersion" "kind" "metadata" | keys | sortAlpha) }}
 {{ . }}:
   {{"{{- ."}}{{ . }}{{" | toYaml | nindent 2 }}"}}
 {{- end }}
