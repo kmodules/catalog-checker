@@ -95,7 +95,8 @@ func main() {
 			})
 			store[k] = v
 
-			filename := filepath.Join(dir, strings.ToLower(k.Kind), fmt.Sprintf("%s-%s.yaml", strings.ToLower(k.Kind), k.Version))
+			dbKind := strings.TrimSuffix(k.Kind, "Version")
+			filename := filepath.Join(dir, strings.ToLower(dbKind), fmt.Sprintf("%s-%s.yaml", strings.ToLower(dbKind), k.Version))
 			err = os.MkdirAll(filepath.Dir(filename), 0755)
 			if err != nil {
 				panic(err)
