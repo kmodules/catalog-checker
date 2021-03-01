@@ -1,4 +1,4 @@
-{{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
+{{ if .Values.catalog.mongodb }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:

@@ -1,4 +1,8 @@
-{{"{{ if and .Values.catalog."}}{{ .key }}{{" (not .Values.skipDeprecated) }}"}}
+{{ if .object.spec.deprecated }}
+{{- "{{ if and .Values.catalog."}}{{ .key }}{{" (not .Values.skipDeprecated) }}" -}}
+{{ else }}
+{{- "{{ if .Values.catalog."}}{{ .key }}{{" }}" -}}
+{{ end }}
 apiVersion: {{ .object.apiVersion }}
 kind: {{ .object.kind }}
 metadata:

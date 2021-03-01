@@ -1,4 +1,4 @@
-{{ if and .Values.catalog.proxysql (not .Values.skipDeprecated) }}
+{{ if .Values.catalog.proxysql }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ProxySQLVersion
 metadata:

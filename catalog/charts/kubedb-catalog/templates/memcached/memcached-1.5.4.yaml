@@ -1,4 +1,4 @@
-{{ if and .Values.catalog.memcached (not .Values.skipDeprecated) }}
+{{ if .Values.catalog.memcached }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MemcachedVersion
 metadata:

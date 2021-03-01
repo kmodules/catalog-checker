@@ -1,4 +1,4 @@
-{{ if and .Values.catalog.perconaxtradb (not .Values.skipDeprecated) }}
+{{ if .Values.catalog.perconaxtradb }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PerconaXtraDBVersion
 metadata:
@@ -24,7 +24,7 @@ spec:
 {{- end }}
 
 ---
-{{ if and .Values.catalog.perconaxtradb (not .Values.skipDeprecated) }}
+{{ if .Values.catalog.perconaxtradb }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PerconaXtraDBVersion
 metadata:

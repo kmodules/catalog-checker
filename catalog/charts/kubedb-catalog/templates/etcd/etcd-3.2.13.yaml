@@ -1,4 +1,4 @@
-{{ if and .Values.catalog.etcd (not .Values.skipDeprecated) }}
+{{ if .Values.catalog.etcd }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: EtcdVersion
 metadata:

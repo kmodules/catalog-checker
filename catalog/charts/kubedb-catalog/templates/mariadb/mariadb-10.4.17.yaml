@@ -1,4 +1,4 @@
-{{ if and .Values.catalog.mariadb (not .Values.skipDeprecated) }}
+{{ if .Values.catalog.mariadb }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MariaDBVersion
 metadata:

@@ -1,4 +1,4 @@
-{{ if and .Values.catalog.pgbouncer (not .Values.skipDeprecated) }}
+{{ if .Values.catalog.pgbouncer }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PgBouncerVersion
 metadata:

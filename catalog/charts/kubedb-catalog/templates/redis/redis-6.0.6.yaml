@@ -1,4 +1,4 @@
-{{ if and .Values.catalog.redis (not .Values.skipDeprecated) }}
+{{ if .Values.catalog.redis }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RedisVersion
 metadata:

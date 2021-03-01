@@ -1,4 +1,4 @@
-{{ if and .Values.catalog.postgres (not .Values.skipDeprecated) }}
+{{ if .Values.catalog.postgres }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
@@ -24,7 +24,7 @@ spec:
 {{- end }}
 
 ---
-{{ if and .Values.catalog.postgres (not .Values.skipDeprecated) }}
+{{ if .Values.catalog.postgres }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:

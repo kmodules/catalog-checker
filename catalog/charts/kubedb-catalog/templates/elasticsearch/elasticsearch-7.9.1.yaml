@@ -1,4 +1,4 @@
-{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
+{{ if .Values.catalog.elasticsearch }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
@@ -26,7 +26,7 @@ spec:
 {{- end }}
 
 ---
-{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
+{{ if .Values.catalog.elasticsearch }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
@@ -54,7 +54,7 @@ spec:
 {{- end }}
 
 ---
-{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
+{{ if .Values.catalog.elasticsearch }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
@@ -82,7 +82,7 @@ spec:
 {{- end }}
 
 ---
-{{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
+{{ if .Values.catalog.elasticsearch }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
