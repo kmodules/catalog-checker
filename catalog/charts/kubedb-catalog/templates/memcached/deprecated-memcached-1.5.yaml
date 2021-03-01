@@ -14,7 +14,7 @@ spec:
   podSecurityPolicies:
     databasePolicyName: memcached-db
   version: "1.5"
-{{- end }}
+{{ end }}
 
 ---
 {{ if and .Values.catalog.memcached (not .Values.skipDeprecated) }}
@@ -33,4 +33,4 @@ spec:
   podSecurityPolicies:
     databasePolicyName: memcached-db
   version: "1.5"
-{{- end }}
+{{ end }}

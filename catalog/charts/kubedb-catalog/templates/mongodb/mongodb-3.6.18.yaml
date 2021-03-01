@@ -25,4 +25,4 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/mongo-tools:4.1'
   version: 3.6.18
-{{- end }}
+{{ end }}

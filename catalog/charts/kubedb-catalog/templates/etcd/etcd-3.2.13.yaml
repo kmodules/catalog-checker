@@ -13,4 +13,4 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/etcd-tools:3.2.13'
   version: 3.2.13
-{{- end }}
+{{ end }}

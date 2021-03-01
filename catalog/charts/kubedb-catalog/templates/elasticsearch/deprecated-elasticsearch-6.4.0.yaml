@@ -20,4 +20,4 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/elasticsearch-tools:6.4.0-v1'
   version: 6.4.0
-{{- end }}
+{{ end }}

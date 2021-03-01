@@ -31,7 +31,7 @@ spec:
       standalone:
       - < 8.0.20
   version: 8.0.20
-{{- end }}
+{{ end }}
 
 ---
 {{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
@@ -62,7 +62,7 @@ spec:
       standalone:
       - < 8.0.20
   version: 8.0.20
-{{- end }}
+{{ end }}
 
 ---
 {{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
@@ -93,4 +93,4 @@ spec:
       standalone:
       - < 8.0.20
   version: 8.0.20
-{{- end }}
+{{ end }}

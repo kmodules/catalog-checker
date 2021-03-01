@@ -21,7 +21,7 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/postgres-tools:9.6.7-v3'
   version: 9.6.7
-{{- end }}
+{{ end }}
 
 ---
 {{ if .Values.catalog.postgres }}
@@ -47,7 +47,7 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/postgres-tools:9.6.7-v3'
   version: 9.6.7
-{{- end }}
+{{ end }}
 
 ---
 {{ if .Values.catalog.postgres }}
@@ -73,7 +73,7 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/postgres-tools:9.6.7-v3'
   version: 9.6.7
-{{- end }}
+{{ end }}
 
 ---
 {{ if .Values.catalog.postgres }}
@@ -99,7 +99,7 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/postgres-tools:9.6.7-v3'
   version: 9.6.7
-{{- end }}
+{{ end }}
 
 ---
 {{ if and .Values.catalog.postgres (not .Values.skipDeprecated) }}
@@ -120,7 +120,7 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/postgres-tools:9.6.7'
   version: 9.6.7
-{{- end }}
+{{ end }}
 
 ---
 {{ if and .Values.catalog.postgres (not .Values.skipDeprecated) }}
@@ -141,4 +141,4 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/postgres-tools:9.6.7-v2'
   version: 9.6.7
-{{- end }}
+{{ end }}

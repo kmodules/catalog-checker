@@ -23,7 +23,7 @@ spec:
       restoreTask:
         name: elasticsearch-restore-7.3.2-v6
   version: 7.3.2
-{{- end }}
+{{ end }}
 
 ---
 {{ if .Values.catalog.elasticsearch }}
@@ -51,7 +51,7 @@ spec:
       restoreTask:
         name: elasticsearch-restore-7.3.2-v6
   version: 7.3.2
-{{- end }}
+{{ end }}
 
 ---
 {{ if .Values.catalog.elasticsearch }}
@@ -82,7 +82,7 @@ spec:
       restoreTask:
         name: elasticsearch-restore-7.3.2-v6
   version: 7.3.2
-{{- end }}
+{{ end }}
 
 ---
 {{ if .Values.catalog.elasticsearch }}
@@ -110,7 +110,7 @@ spec:
       restoreTask:
         name: elasticsearch-restore-7.3.2-v6
   version: 7.3.2
-{{- end }}
+{{ end }}
 
 ---
 {{ if .Values.catalog.elasticsearch }}
@@ -138,7 +138,7 @@ spec:
       restoreTask:
         name: elasticsearch-restore-7.3.2-v6
   version: 7.3.2
-{{- end }}
+{{ end }}
 
 ---
 {{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
@@ -163,7 +163,7 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/elasticsearch-tools:7.3'
   version: 7.3.2
-{{- end }}
+{{ end }}
 
 ---
 {{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
@@ -188,4 +188,4 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/elasticsearch-tools:7.3.2'
   version: 7.3.2
-{{- end }}
+{{ end }}

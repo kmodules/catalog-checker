@@ -12,4 +12,4 @@ spec:
   server:
     image: '{{ .Values.image.registry }}/pgbouncer:1.7'
   version: "1.7"
-{{- end }}
+{{ end }}

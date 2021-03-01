@@ -23,7 +23,7 @@ spec:
       restoreTask:
         name: elasticsearch-restore-7.3.2-v6
   version: 7.7.0
-{{- end }}
+{{ end }}
 
 ---
 {{ if .Values.catalog.elasticsearch }}
@@ -51,4 +51,4 @@ spec:
       restoreTask:
         name: elasticsearch-restore-7.3.2-v6
   version: 7.7.0
-{{- end }}
+{{ end }}

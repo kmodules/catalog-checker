@@ -20,7 +20,7 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/mongo-tools:3.4'
   version: "3.4"
-{{- end }}
+{{ end }}
 
 ---
 {{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
@@ -45,7 +45,7 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/mongo-tools:3.4-v2'
   version: "3.4"
-{{- end }}
+{{ end }}
 
 ---
 {{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
@@ -70,7 +70,7 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/mongo-tools:3.4-v2'
   version: "3.4"
-{{- end }}
+{{ end }}
 
 ---
 {{ if and .Values.catalog.mongodb (not .Values.skipDeprecated) }}
@@ -95,4 +95,4 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/mongo-tools:3.4-v3'
   version: "3.4"
-{{- end }}
+{{ end }}

@@ -11,4 +11,4 @@ spec:
   server:
     image: '{{ .Values.image.registry }}/pgbouncer:1.8.1'
   version: 1.8.1
-{{- end }}
+{{ end }}

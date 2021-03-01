@@ -21,7 +21,7 @@ spec:
       restoreTask:
         name: percona-xtradb-restore-5.7.0-v1
   version: "5.7"
-{{- end }}
+{{ end }}
 
 ---
 {{ if .Values.catalog.perconaxtradb }}
@@ -47,4 +47,4 @@ spec:
       restoreTask:
         name: percona-xtradb-restore-5.7.0-v1
   version: "5.7"
-{{- end }}
+{{ end }}

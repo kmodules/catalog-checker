@@ -21,7 +21,7 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/postgres-tools:10.6'
   version: "10.6"
-{{- end }}
+{{ end }}
 
 ---
 {{ if .Values.catalog.postgres }}
@@ -47,7 +47,7 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/postgres-tools:10.6'
   version: "10.6"
-{{- end }}
+{{ end }}
 
 ---
 {{ if .Values.catalog.postgres }}
@@ -73,7 +73,7 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/postgres-tools:10.6'
   version: "10.6"
-{{- end }}
+{{ end }}
 
 ---
 {{ if .Values.catalog.postgres }}
@@ -99,4 +99,4 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/postgres-tools:10.6'
   version: "10.6"
-{{- end }}
+{{ end }}

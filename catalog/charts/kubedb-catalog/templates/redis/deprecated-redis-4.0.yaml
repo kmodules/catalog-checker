@@ -14,7 +14,7 @@ spec:
   podSecurityPolicies:
     databasePolicyName: redis-db
   version: "4.0"
-{{- end }}
+{{ end }}
 
 ---
 {{ if and .Values.catalog.redis (not .Values.skipDeprecated) }}
@@ -33,7 +33,7 @@ spec:
   podSecurityPolicies:
     databasePolicyName: redis-db
   version: "4.0"
-{{- end }}
+{{ end }}
 
 ---
 {{ if and .Values.catalog.redis (not .Values.skipDeprecated) }}
@@ -52,4 +52,4 @@ spec:
   podSecurityPolicies:
     databasePolicyName: redis-db
   version: "4.0"
-{{- end }}
+{{ end }}

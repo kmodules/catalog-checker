@@ -20,7 +20,7 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/elasticsearch-tools:7.2'
   version: 7.2.0
-{{- end }}
+{{ end }}
 
 ---
 {{ if and .Values.catalog.elasticsearch (not .Values.skipDeprecated) }}
@@ -45,4 +45,4 @@ spec:
   tools:
     image: '{{ .Values.image.registry }}/elasticsearch-tools:7.2.0'
   version: 7.2.0
-{{- end }}
+{{ end }}

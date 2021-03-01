@@ -33,7 +33,7 @@ spec:
       standalone:
       - < 5.7.25
   version: 5.7.25
-{{- end }}
+{{ end }}
 
 ---
 {{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
@@ -64,7 +64,7 @@ spec:
       standalone:
       - 5.7.25
   version: 5.7.25
-{{- end }}
+{{ end }}
 
 ---
 {{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
@@ -95,7 +95,7 @@ spec:
       standalone:
       - 5.7.25
   version: 5.7.25
-{{- end }}
+{{ end }}
 
 ---
 {{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
@@ -126,7 +126,7 @@ spec:
       standalone:
       - 5.7.25
   version: 5.7.25
-{{- end }}
+{{ end }}
 
 ---
 {{ if and .Values.catalog.mysql (not .Values.skipDeprecated) }}
@@ -159,4 +159,4 @@ spec:
       standalone:
       - < 5.7.25
   version: 5.7.25
-{{- end }}
+{{ end }}
