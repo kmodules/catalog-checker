@@ -3,9 +3,12 @@ module kmodules.xyz/catalog-checker
 go 1.16
 
 require (
+	github.com/Masterminds/semver v1.5.0
 	github.com/codeskyblue/go-sh v0.0.0-20200712050446-30169cf553fe
+	k8s.io/apimachinery v0.18.9
 	kmodules.xyz/client-go v0.0.0-20210220080427-fd7308e30bb4
 	kmodules.xyz/resource-metadata v0.4.13
+	sigs.k8s.io/yaml v1.2.0
 )
 
 replace cloud.google.com/go => cloud.google.com/go v0.38.0

@@ -1,0 +1,31 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 1.12.0-opendistro
+  namespace: default
+spec:
+  authPlugin: OpenDistro
+  db:
+    image: kubedb/elasticsearch:1.12.0-opendistro
+  exporter:
+    image: kubedb/elasticsearch_exporter:1.1.0
+  initContainer:
+    image: kubedb/toybox:0.8.4
+    yqImage: kubedb/elasticsearch-init:1.12.0-opendistro
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  stash:
+    addon:
+      backupTask:
+        name: elasticsearch-backup-7.3.2-v6
+      restoreTask:
+        name: elasticsearch-restore-7.3.2-v6
+  version: 7.10.0
+
+---

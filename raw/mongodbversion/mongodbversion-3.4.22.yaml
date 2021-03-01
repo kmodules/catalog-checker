@@ -1,0 +1,33 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 3.4.22-v1
+  namespace: default
+spec:
+  db:
+    image: kubedb/mongo:3.4.22-v1
+  exporter:
+    image: kubedb/percona-mongodb-exporter:v0.8.0
+  initContainer:
+    image: kubedb/mongodb-init:4.1
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: kubedb/replication-mode-detector:v0.3.2
+  stash:
+    addon:
+      backupTask:
+        name: mongodb-backup-3.4.22-v5
+      restoreTask:
+        name: mongodb-restore-3.4.22-v5
+  tools:
+    image: kubedb/mongo-tools:3.4.22
+  version: 3.4.22
+
+---
