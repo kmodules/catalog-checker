@@ -76,7 +76,7 @@ func SortVersions(versions []string) ([]string, error) {
 		}
 		vs[i] = v
 	}
-	sort.Sort(SemverCollection(vs))
+	sort.Sort(sort.Reverse(SemverCollection(vs)))
 
 	result := make([]string, len(vs))
 	for i, v := range vs {
