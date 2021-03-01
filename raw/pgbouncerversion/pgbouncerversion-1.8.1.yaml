@@ -15,5 +15,4 @@ spec:
   server:
     image: kubedb/pgbouncer:1.8.1
   version: 1.8.1
-
 ---

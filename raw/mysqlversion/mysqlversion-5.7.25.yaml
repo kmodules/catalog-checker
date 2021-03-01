@@ -37,7 +37,6 @@ spec:
       standalone:
       - < 5.7.25
   version: 5.7.25
-
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
@@ -73,5 +72,4 @@ spec:
       standalone:
       - < 5.7.25
   version: 5.7.25
-
 ---

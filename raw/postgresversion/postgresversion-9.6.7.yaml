@@ -25,7 +25,6 @@ spec:
   tools:
     image: kubedb/postgres-tools:9.6.7-v3
   version: 9.6.7
-
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
@@ -54,7 +53,6 @@ spec:
   tools:
     image: kubedb/postgres-tools:9.6.7-v3
   version: 9.6.7
-
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
@@ -83,7 +81,6 @@ spec:
   tools:
     image: kubedb/postgres-tools:9.6.7-v3
   version: 9.6.7
-
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
@@ -112,5 +109,4 @@ spec:
   tools:
     image: kubedb/postgres-tools:9.6.7-v3
   version: 9.6.7
-
 ---

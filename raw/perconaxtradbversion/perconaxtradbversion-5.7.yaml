@@ -25,7 +25,6 @@ spec:
       restoreTask:
         name: percona-xtradb-restore-5.7.0-v1
   version: "5.7"
-
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PerconaXtraDBVersion
@@ -54,5 +53,4 @@ spec:
       restoreTask:
         name: percona-xtradb-restore-5.7.0-v1
   version: "5.7"
-
 ---

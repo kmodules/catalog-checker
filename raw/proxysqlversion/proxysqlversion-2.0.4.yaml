@@ -17,5 +17,4 @@ spec:
   proxysql:
     image: kubedb/proxysql:v2.0.4
   version: 2.0.4
-
 ---

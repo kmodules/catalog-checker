@@ -108,7 +108,7 @@ func main() {
 					panic(err)
 				}
 				buf.Write(data)
-				buf.WriteString("\n---\n")
+				buf.WriteString("---\n")
 			}
 			err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
 			if err != nil {

@@ -35,5 +35,4 @@ spec:
       standalone:
       - < 5.7.33
   version: 5.7.33
-
 ---
