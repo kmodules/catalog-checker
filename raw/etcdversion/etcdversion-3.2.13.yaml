@@ -17,4 +17,3 @@ spec:
   tools:
     image: kubedb/etcd-tools:3.2.13
   version: 3.2.13
----

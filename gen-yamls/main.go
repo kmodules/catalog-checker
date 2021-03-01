@@ -102,13 +102,15 @@ func main() {
 			}
 
 			var buf bytes.Buffer
-			for _, obj := range v {
+			for i, obj := range v {
+				if i > 0 {
+					buf.WriteString("\n---\n")
+				}
 				data, err := yaml.Marshal(obj)
 				if err != nil {
 					panic(err)
 				}
 				buf.Write(data)
-				buf.WriteString("---\n")
 			}
 			err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
 			if err != nil {

@@ -29,4 +29,3 @@ spec:
   tools:
     image: kubedb/mongo-tools:3.4.22
   version: 3.4.22
----

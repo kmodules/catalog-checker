@@ -27,6 +27,7 @@ spec:
       restoreTask:
         name: elasticsearch-restore-7.3.2-v6
   version: 7.9.1
+
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
@@ -57,6 +58,7 @@ spec:
       restoreTask:
         name: elasticsearch-restore-7.3.2-v6
   version: 7.9.1
+
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
@@ -87,6 +89,7 @@ spec:
       restoreTask:
         name: elasticsearch-restore-7.3.2-v6
   version: 7.9.1
+
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
@@ -117,4 +120,3 @@ spec:
       restoreTask:
         name: elasticsearch-restore-7.3.2-v6
   version: 7.9.1
----

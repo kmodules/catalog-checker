@@ -25,6 +25,7 @@ spec:
   tools:
     image: kubedb/postgres-tools:11.2
   version: "11.2"
+
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
@@ -53,4 +54,3 @@ spec:
   tools:
     image: kubedb/postgres-tools:11.2
   version: "11.2"
----

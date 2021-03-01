@@ -17,4 +17,3 @@ spec:
   podSecurityPolicies:
     databasePolicyName: redis-db
   version: 4.0.11
----

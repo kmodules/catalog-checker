@@ -27,4 +27,3 @@ spec:
       restoreTask:
         name: elasticsearch-restore-7.3.2-v6
   version: 7.10.0
----

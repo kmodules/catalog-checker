@@ -17,4 +17,3 @@ spec:
   podSecurityPolicies:
     databasePolicyName: memcached-db
   version: 1.5.4
----

@@ -30,6 +30,7 @@ spec:
       restoreTask:
         name: elasticsearch-restore-6.8.0-v6
   version: 6.8.1
+
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
@@ -63,4 +64,3 @@ spec:
       restoreTask:
         name: elasticsearch-restore-6.8.0-v6
   version: 6.8.1
----
