@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
+	"k8s.io/apimachinery/pkg/util/sets"
 	"os"
 	"path/filepath"
 	"sort"
@@ -58,7 +59,7 @@ func main() {
 	}
 
 	dbStore := map[DbVersion][]*unstructured.Unstructured{}
-	pspForDBs := map[DB][]string{}
+	pspForDBs := map[DB]sets.String{}
 	pspStore := map[string]*unstructured.Unstructured{}
 
 	for _, obj := range resources {
@@ -87,7 +88,10 @@ func main() {
 					Group: gv.Group,
 					Kind:  obj.GetKind(),
 				}
-				pspForDBs[key2] = append(pspForDBs[key2], pspName)
+				if _, ok := pspForDBs[key2]; !ok {
+					pspForDBs[key2] = sets.NewString()
+				}
+				pspForDBs[key2].Insert(pspName)
 			}
 		} else if gv.Group == "policy" {
 			if _, ok := pspStore[obj.GetName()]; ok {
@@ -152,7 +156,7 @@ func main() {
 		}
 
 		var buf bytes.Buffer
-		for i, pspName := range v {
+		for i, pspName := range v.List() {
 			if i > 0 {
 				buf.WriteString("\n---\n")
 			}
