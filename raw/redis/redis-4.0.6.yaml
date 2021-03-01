@@ -17,3 +17,47 @@ spec:
   podSecurityPolicies:
     databasePolicyName: redis-db
   version: 4.0.6
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: RedisVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 4.0.6
+  namespace: default
+spec:
+  db:
+    image: kubedb/redis:4.0.6
+  deprecated: true
+  exporter:
+    image: kubedb/operator:0.8.0
+  podSecurityPolicies:
+    databasePolicyName: redis-db
+  version: 4.0.6
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: RedisVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 4.0.6-v1
+  namespace: default
+spec:
+  db:
+    image: kubedb/redis:4.0.6-v1
+  deprecated: true
+  exporter:
+    image: kubedb/redis_exporter:v0.21.1
+  podSecurityPolicies:
+    databasePolicyName: redis-db
+  version: 4.0.6

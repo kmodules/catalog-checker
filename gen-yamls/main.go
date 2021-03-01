@@ -26,7 +26,7 @@ func main() {
 	sh.SetDir(os.ExpandEnv("$HOME/go/src/kubedb.dev/installer"))
 	sh.ShowCMD = true
 
-	out, err := sh.Command("helm", "template", "charts/kubedb-catalog").Output()
+	out, err := sh.Command("helm", "template", "charts/kubedb-catalog", "--set", "skipDeprecated=false").Output()
 	if err != nil {
 		panic(err)
 	}

@@ -7,47 +7,14 @@ metadata:
     app.kubernetes.io/name: kubedb-catalog
     app.kubernetes.io/version: v0.16.2
     helm.sh/chart: kubedb-catalog-v0.16.2
-  name: 4.1.13-v1
+  name: "3.4"
   namespace: default
 spec:
   db:
-    image: kubedb/mongo:4.1.13-v1
-  exporter:
-    image: kubedb/percona-mongodb-exporter:v0.8.0
-  initContainer:
-    image: kubedb/mongodb-init:4.2
-  podSecurityPolicies:
-    databasePolicyName: mongodb-db
-  replicationModeDetector:
-    image: kubedb/replication-mode-detector:v0.3.2
-  stash:
-    addon:
-      backupTask:
-        name: mongodb-backup-4.1.13-v5
-      restoreTask:
-        name: mongodb-restore-4.1.13-v5
-  tools:
-    image: kubedb/mongo-tools:4.1.13
-  version: 4.1.13
-
----
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: MongoDBVersion
-metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
-  name: "4.1"
-  namespace: default
-spec:
-  db:
-    image: kubedb/mongo:4.1
+    image: kubedb/mongo:3.4
   deprecated: true
   exporter:
-    image: kubedb/percona-mongodb-exporter:v0.8.0
+    image: kubedb/operator:0.8.0
   initContainer:
     image: kubedb/busybox
   podSecurityPolicies:
@@ -55,8 +22,8 @@ spec:
   replicationModeDetector:
     image: kubedb/replication-mode-detector:v0.3.2
   tools:
-    image: kubedb/mongo-tools:4.1
-  version: 4.1.13
+    image: kubedb/mongo-tools:3.4
+  version: "3.4"
 
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -68,42 +35,14 @@ metadata:
     app.kubernetes.io/name: kubedb-catalog
     app.kubernetes.io/version: v0.16.2
     helm.sh/chart: kubedb-catalog-v0.16.2
-  name: 4.1-v1
+  name: 3.4-v1
   namespace: default
 spec:
   db:
-    image: kubedb/mongo:4.1-v1
+    image: kubedb/mongo:3.4-v1
   deprecated: true
   exporter:
-    image: kubedb/percona-mongodb-exporter:v0.8.0
-  initContainer:
-    image: kubedb/mongodb-init:0.3.0
-  podSecurityPolicies:
-    databasePolicyName: mongodb-db
-  replicationModeDetector:
-    image: kubedb/replication-mode-detector:v0.3.2
-  tools:
-    image: kubedb/mongo-tools:4.1
-  version: 4.1.13
-
----
-apiVersion: catalog.kubedb.com/v1alpha1
-kind: MongoDBVersion
-metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
-  name: 4.1.13
-  namespace: default
-spec:
-  db:
-    image: kubedb/mongo:4.1.13
-  deprecated: true
-  exporter:
-    image: kubedb/percona-mongodb-exporter:v0.8.0
+    image: kubedb/mongodb_exporter:v1.0.0
   initContainer:
     image: kubedb/busybox
   podSecurityPolicies:
@@ -111,5 +50,61 @@ spec:
   replicationModeDetector:
     image: kubedb/replication-mode-detector:v0.3.2
   tools:
-    image: kubedb/mongo-tools:4.1.13
-  version: 4.1.13
+    image: kubedb/mongo-tools:3.4-v2
+  version: "3.4"
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 3.4-v2
+  namespace: default
+spec:
+  db:
+    image: kubedb/mongo:3.4-v2
+  deprecated: true
+  exporter:
+    image: kubedb/mongodb_exporter:v1.0.0
+  initContainer:
+    image: kubedb/busybox
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: kubedb/replication-mode-detector:v0.3.2
+  tools:
+    image: kubedb/mongo-tools:3.4-v2
+  version: "3.4"
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 3.4-v3
+  namespace: default
+spec:
+  db:
+    image: kubedb/mongo:3.4-v3
+  deprecated: true
+  exporter:
+    image: kubedb/mongodb_exporter:v1.0.0
+  initContainer:
+    image: kubedb/busybox
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: kubedb/replication-mode-detector:v0.3.2
+  tools:
+    image: kubedb/mongo-tools:3.4-v3
+  version: "3.4"

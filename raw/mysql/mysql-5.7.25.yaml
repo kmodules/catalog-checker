@@ -48,6 +48,108 @@ metadata:
     app.kubernetes.io/name: kubedb-catalog
     app.kubernetes.io/version: v0.16.2
     helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 5.7-v2
+  namespace: default
+spec:
+  db:
+    image: kubedb/mysql:5.7-v2
+  deprecated: true
+  exporter:
+    image: kubedb/mysqld-exporter:v0.11.0
+  initContainer:
+    image: kubedb/busybox
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: kubedb/replication-mode-detector:v0.3.2
+  tools:
+    image: kubedb/mysql-tools:5.7-v2
+  upgradeConstraints:
+    allowlist:
+      groupReplication:
+      - 5.7.25
+      standalone:
+      - 5.7.25
+  version: 5.7.25
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 5.7-v3
+  namespace: default
+spec:
+  db:
+    image: kubedb/mysql:5.7.25
+  deprecated: true
+  exporter:
+    image: kubedb/mysqld-exporter:v0.11.0
+  initContainer:
+    image: kubedb/busybox
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: kubedb/replication-mode-detector:v0.3.2
+  tools:
+    image: kubedb/mysql-tools:5.7.25
+  upgradeConstraints:
+    allowlist:
+      groupReplication:
+      - 5.7.25
+      standalone:
+      - 5.7.25
+  version: 5.7.25
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 5.7.25
+  namespace: default
+spec:
+  db:
+    image: kubedb/mysql:5.7.25
+  deprecated: true
+  exporter:
+    image: kubedb/mysqld-exporter:v0.11.0
+  initContainer:
+    image: kubedb/busybox
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: kubedb/replication-mode-detector:v0.3.2
+  tools:
+    image: kubedb/mysql-tools:5.7.25
+  upgradeConstraints:
+    allowlist:
+      groupReplication:
+      - 5.7.25
+      standalone:
+      - 5.7.25
+  version: 5.7.25
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 5.7.25-v1
   namespace: default
 spec:

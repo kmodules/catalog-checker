@@ -112,3 +112,51 @@ spec:
   tools:
     image: kubedb/postgres-tools:10.2-v3
   version: "10.2"
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: "10.2"
+  namespace: default
+spec:
+  db:
+    image: kubedb/postgres:10.2
+  deprecated: true
+  exporter:
+    image: kubedb/operator:0.8.0
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  tools:
+    image: kubedb/postgres-tools:10.2
+  version: "10.2"
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: PostgresVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 10.2-v1
+  namespace: default
+spec:
+  db:
+    image: kubedb/postgres:10.2-v2
+  deprecated: true
+  exporter:
+    image: kubedb/postgres_exporter:v0.4.6
+  podSecurityPolicies:
+    databasePolicyName: postgres-db
+  tools:
+    image: kubedb/postgres-tools:10.2-v2
+  version: "10.2"

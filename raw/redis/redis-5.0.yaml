@@ -1,5 +1,5 @@
 apiVersion: catalog.kubedb.com/v1alpha1
-kind: MemcachedVersion
+kind: RedisVersion
 metadata:
   labels:
     app.kubernetes.io/instance: RELEASE-NAME
@@ -7,20 +7,21 @@ metadata:
     app.kubernetes.io/name: kubedb-catalog
     app.kubernetes.io/version: v0.16.2
     helm.sh/chart: kubedb-catalog-v0.16.2
-  name: 1.5.4-v1
+  name: "5.0"
   namespace: default
 spec:
   db:
-    image: kubedb/memcached:1.5.4-v1
+    image: kubedb/redis:5.0
+  deprecated: true
   exporter:
-    image: kubedb/memcached-exporter:v0.4.1
+    image: kubedb/redis_exporter:v0.21.1
   podSecurityPolicies:
-    databasePolicyName: memcached-db
-  version: 1.5.4
+    databasePolicyName: redis-db
+  version: "5.0"
 
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
-kind: MemcachedVersion
+kind: RedisVersion
 metadata:
   labels:
     app.kubernetes.io/instance: RELEASE-NAME
@@ -28,14 +29,14 @@ metadata:
     app.kubernetes.io/name: kubedb-catalog
     app.kubernetes.io/version: v0.16.2
     helm.sh/chart: kubedb-catalog-v0.16.2
-  name: 1.5.4
+  name: 5.0-v1
   namespace: default
 spec:
   db:
-    image: kubedb/memcached:1.5.4
+    image: kubedb/redis:5.0-v1
   deprecated: true
   exporter:
-    image: kubedb/operator:0.8.0
+    image: kubedb/redis_exporter:v0.21.1
   podSecurityPolicies:
-    databasePolicyName: memcached-db
-  version: 1.5.4
+    databasePolicyName: redis-db
+  version: "5.0"

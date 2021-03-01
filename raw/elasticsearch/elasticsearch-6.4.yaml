@@ -1,0 +1,26 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: ElasticsearchVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: "6.4"
+  namespace: default
+spec:
+  authPlugin: SearchGuard
+  db:
+    image: kubedb/elasticsearch:6.4
+  deprecated: true
+  exporter:
+    image: kubedb/elasticsearch_exporter:1.0.2
+  initContainer:
+    image: kubedb/busybox
+    yqImage: kubedb/yq:2.4.0
+  podSecurityPolicies:
+    databasePolicyName: elasticsearch-db
+  tools:
+    image: kubedb/elasticsearch-tools:6.4-v1
+  version: "6.4"

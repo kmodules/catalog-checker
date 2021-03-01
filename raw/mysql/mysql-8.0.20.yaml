@@ -46,6 +46,40 @@ metadata:
     app.kubernetes.io/name: kubedb-catalog
     app.kubernetes.io/version: v0.16.2
     helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 8.0-v3
+  namespace: default
+spec:
+  db:
+    image: kubedb/mysql:8.0.20
+  deprecated: true
+  exporter:
+    image: kubedb/mysqld-exporter:v0.11.0
+  initContainer:
+    image: kubedb/busybox
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: kubedb/replication-mode-detector:v0.3.2
+  tools:
+    image: kubedb/mysql-tools:5.7.25
+  upgradeConstraints:
+    denylist:
+      groupReplication:
+      - < 8.0.20
+      standalone:
+      - < 8.0.20
+  version: 8.0.20
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 8.0.20
   namespace: default
 spec:

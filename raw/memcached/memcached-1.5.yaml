@@ -7,16 +7,17 @@ metadata:
     app.kubernetes.io/name: kubedb-catalog
     app.kubernetes.io/version: v0.16.2
     helm.sh/chart: kubedb-catalog-v0.16.2
-  name: 1.5.4-v1
+  name: "1.5"
   namespace: default
 spec:
   db:
-    image: kubedb/memcached:1.5.4-v1
+    image: kubedb/memcached:1.5
+  deprecated: true
   exporter:
-    image: kubedb/memcached-exporter:v0.4.1
+    image: kubedb/operator:0.8.0
   podSecurityPolicies:
     databasePolicyName: memcached-db
-  version: 1.5.4
+  version: "1.5"
 
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -28,14 +29,14 @@ metadata:
     app.kubernetes.io/name: kubedb-catalog
     app.kubernetes.io/version: v0.16.2
     helm.sh/chart: kubedb-catalog-v0.16.2
-  name: 1.5.4
+  name: 1.5-v1
   namespace: default
 spec:
   db:
-    image: kubedb/memcached:1.5.4
+    image: kubedb/memcached:1.5-v1
   deprecated: true
   exporter:
-    image: kubedb/operator:0.8.0
+    image: kubedb/memcached-exporter:v0.4.1
   podSecurityPolicies:
     databasePolicyName: memcached-db
-  version: 1.5.4
+  version: "1.5"
