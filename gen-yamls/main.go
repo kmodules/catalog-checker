@@ -97,6 +97,9 @@ func main() {
 
 			dbKind := strings.TrimSuffix(k.Kind, "Version")
 			filename := filepath.Join(dir, strings.ToLower(dbKind), fmt.Sprintf("%s-%s.yaml", strings.ToLower(dbKind), k.Version))
+			if allDeprecated(v) {
+				filename = filepath.Join(dir, strings.ToLower(dbKind), fmt.Sprintf("deprecated-%s-%s.yaml", strings.ToLower(dbKind), k.Version))
+			}
 			err = os.MkdirAll(filepath.Dir(filename), 0755)
 			if err != nil {
 				panic(err)
@@ -119,4 +122,14 @@ func main() {
 			}
 		}
 	}
+}
+
+func allDeprecated(objs []*unstructured.Unstructured) bool {
+	for _, obj := range objs{
+		d, _, _ := unstructured.NestedBool(obj.Object, "spec", "deprecated")
+		if !d {
+			return false
+		}
+	}
+	return true
 }
