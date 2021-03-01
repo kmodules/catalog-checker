@@ -1,0 +1,8 @@
+{{"{{- with .Values."}}{{ .key }} {{"}}"}}
+apiVersion: {{ .object.apiVersion }}
+kind: {{ .object.kind }}
+{{- range (omit .object "apiVersion" "kind" | keys | sortAlpha) }}
+{{ . }}:
+  {{"{{- ."}}{{ . }}{{" | toYaml | nindent 2 }}"}}
+{{- end }}
+{{"{{- end }}"}}

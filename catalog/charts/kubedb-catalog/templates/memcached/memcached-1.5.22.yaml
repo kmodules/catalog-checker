@@ -1,0 +1,19 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MemcachedVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 1.5.22
+  namespace: default
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/memcached:1.5.22'
+  exporter:
+    image: '{{ .Values.image.registry }}/memcached-exporter:v0.4.1'
+  podSecurityPolicies:
+    databasePolicyName: memcached-db
+  version: 1.5.22

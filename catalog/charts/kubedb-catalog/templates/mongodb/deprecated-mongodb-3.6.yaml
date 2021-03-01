@@ -1,0 +1,110 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: "3.6"
+  namespace: default
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/mongo:3.6'
+  deprecated: true
+  exporter:
+    image: '{{ .Values.image.registry }}/operator:0.8.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox'
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
+  tools:
+    image: '{{ .Values.image.registry }}/mongo-tools:3.6'
+  version: "3.6"
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 3.6-v1
+  namespace: default
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/mongo:3.6-v1'
+  deprecated: true
+  exporter:
+    image: '{{ .Values.image.registry }}/mongodb_exporter:v1.0.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox'
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
+  tools:
+    image: '{{ .Values.image.registry }}/mongo-tools:3.6-v2'
+  version: "3.6"
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 3.6-v2
+  namespace: default
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/mongo:3.6-v2'
+  deprecated: true
+  exporter:
+    image: '{{ .Values.image.registry }}/mongodb_exporter:v1.0.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox'
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
+  tools:
+    image: '{{ .Values.image.registry }}/mongo-tools:3.6-v2'
+  version: "3.6"
+
+---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MongoDBVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: 3.6-v3
+  namespace: default
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/mongo:3.6-v3'
+  deprecated: true
+  exporter:
+    image: '{{ .Values.image.registry }}/mongodb_exporter:v1.0.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox'
+  podSecurityPolicies:
+    databasePolicyName: mongodb-db
+  replicationModeDetector:
+    image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
+  tools:
+    image: '{{ .Values.image.registry }}/mongo-tools:3.6-v3'
+  version: "3.6"

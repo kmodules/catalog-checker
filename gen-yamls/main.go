@@ -39,7 +39,7 @@ func main() {
 
 	fmt.Println(len(resources))
 
-	dir := filepath.Join(".", "raw")
+	dir := filepath.Join(".", "catalog")
 	err = os.RemoveAll(dir)
 	if err != nil {
 		panic(err)
@@ -243,9 +243,9 @@ func main() {
 		}
 
 		dbKind := strings.TrimSuffix(k.Kind, "Version")
-		filename := filepath.Join(dir, strings.ToLower(dbKind), fmt.Sprintf("%s-%s.yaml", strings.ToLower(dbKind), k.Version))
+		filename := filepath.Join(dir, "raw", strings.ToLower(dbKind), fmt.Sprintf("%s-%s.yaml", strings.ToLower(dbKind), k.Version))
 		if allDeprecated(v) {
-			filename = filepath.Join(dir, strings.ToLower(dbKind), fmt.Sprintf("deprecated-%s-%s.yaml", strings.ToLower(dbKind), k.Version))
+			filename = filepath.Join(dir, "raw", strings.ToLower(dbKind), fmt.Sprintf("deprecated-%s-%s.yaml", strings.ToLower(dbKind), k.Version))
 		}
 		err = os.MkdirAll(filepath.Dir(filename), 0755)
 		if err != nil {
@@ -255,6 +255,52 @@ func main() {
 		err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
 		if err != nil {
 			panic(err)
+		}
+	}
+
+	// GENERATE CHART
+	{
+		for k, v := range dbStore {
+			for _, obj := range v {
+				spec, _, err := unstructured.NestedMap(obj.Object, "spec")
+				if err != nil {
+					panic(err)
+				}
+				for prop := range spec {
+					img, ok, _ := unstructured.NestedString(obj.Object, "spec", prop, "image")
+					if ok {
+						newimg := `{{ .Values.image.registry }}/` + strings.Split(img, "/")[1]
+						unstructured.SetNestedField(obj.Object, newimg, "spec", prop, "image")
+					}
+				}
+			}
+
+			var buf bytes.Buffer
+			for i, obj := range v {
+				if i > 0 {
+					buf.WriteString("\n---\n")
+				}
+				data, err := yaml.Marshal(obj)
+				if err != nil {
+					panic(err)
+				}
+				buf.Write(data)
+			}
+
+			dbKind := strings.TrimSuffix(k.Kind, "Version")
+			filename := filepath.Join(dir, "charts", "kubedb-catalog", "templates", strings.ToLower(dbKind), fmt.Sprintf("%s-%s.yaml", strings.ToLower(dbKind), k.Version))
+			if allDeprecated(v) {
+				filename = filepath.Join(dir, "charts", "kubedb-catalog", "templates", strings.ToLower(dbKind), fmt.Sprintf("deprecated-%s-%s.yaml", strings.ToLower(dbKind), k.Version))
+			}
+			err = os.MkdirAll(filepath.Dir(filename), 0755)
+			if err != nil {
+				panic(err)
+			}
+
+			err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
+			if err != nil {
+				panic(err)
+			}
 		}
 	}
 

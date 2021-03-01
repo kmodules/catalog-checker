@@ -1,0 +1,32 @@
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  labels:
+    app.kubernetes.io/instance: RELEASE-NAME
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kubedb-catalog
+    app.kubernetes.io/version: v0.16.2
+    helm.sh/chart: kubedb-catalog-v0.16.2
+  name: "8.0"
+  namespace: default
+spec:
+  db:
+    image: '{{ .Values.image.registry }}/mysql:8.0'
+  deprecated: true
+  exporter:
+    image: '{{ .Values.image.registry }}/operator:0.8.0'
+  initContainer:
+    image: '{{ .Values.image.registry }}/busybox'
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+  replicationModeDetector:
+    image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
+  tools:
+    image: '{{ .Values.image.registry }}/mysql-tools:8.0'
+  upgradeConstraints:
+    allowlist:
+      groupReplication:
+      - "8.0"
+      standalone:
+      - "8.0"
+  version: "8.0"
