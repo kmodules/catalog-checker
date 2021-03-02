@@ -1,19 +1,12 @@
+{{ if .Values.catalog.mysql }}
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
+  name: mysql-db
   labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
-  name: proxysql-db
-  namespace: default
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   allowPrivilegeEscalation: false
-  allowedCapabilities:
-  - IPC_LOCK
-  - SYS_RESOURCE
   fsGroup:
     rule: RunAsAny
   hostIPC: false
@@ -28,3 +21,4 @@ spec:
     rule: RunAsAny
   volumes:
   - '*'
+{{ end }}

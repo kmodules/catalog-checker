@@ -260,6 +260,36 @@ func main() {
 		}
 	}
 
+	for k, v := range pspForDBs {
+		if len(v) == 0 {
+			continue
+		}
+
+		var buf bytes.Buffer
+		for i, pspName := range v.List() {
+			if i > 0 {
+				buf.WriteString("\n---\n")
+			}
+			data, err := yaml.Marshal(pspStore[pspName])
+			if err != nil {
+				panic(err)
+			}
+			buf.Write(data)
+		}
+
+		dbKind := strings.TrimSuffix(k.Kind, "Version")
+		filename := filepath.Join(dir, "raw", strings.ToLower(dbKind), fmt.Sprintf("%s-psp.yaml", strings.ToLower(dbKind)))
+		err = os.MkdirAll(filepath.Dir(filename), 0755)
+		if err != nil {
+			panic(err)
+		}
+
+		err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
+
 	// GENERATE CHART
 	{
 		for k, v := range dbStore {
@@ -270,7 +300,7 @@ func main() {
 				}
 				for prop := range spec {
 
-					templatizeRegistry := func (field string) {
+					templatizeRegistry := func(field string) {
 						img, ok, _ := unstructured.NestedString(obj.Object, "spec", prop, field)
 						if ok {
 							newimg := `{{ .Values.image.registry }}/` + strings.Split(img, "/")[1]
@@ -322,7 +352,7 @@ func main() {
 					}
 
 					data := map[string]interface{}{
-						"key" : strings.ToLower(dbKind),
+						"key":    strings.ToLower(dbKind),
 						"object": obj.Object,
 					}
 					localTplFile := "/home/tamal/go/src/kmodules.xyz/catalog-checker/gen-chart/template-dbver.yaml"
@@ -351,35 +381,49 @@ func main() {
 				}
 			}
 		}
-	}
 
-	for k, v := range pspForDBs {
-		if len(v) == 0 {
-			continue
-		}
-
-		var buf bytes.Buffer
-		for i, pspName := range v.List() {
-			if i > 0 {
-				buf.WriteString("\n---\n")
+		for k, v := range pspForDBs {
+			if len(v) == 0 {
+				continue
 			}
-			data, err := yaml.Marshal(pspStore[pspName])
+
+			dbKind := strings.TrimSuffix(k.Kind, "Version")
+
+			var buf bytes.Buffer
+			for i, pspName := range v.List() {
+				if i > 0 {
+					buf.WriteString("\n---\n")
+				}
+
+				if pspStore[pspName] == nil {
+					panic("missing psp " + pspName + " for db " + dbKind)
+				}
+
+				data := map[string]interface{}{
+					"key":    strings.ToLower(dbKind),
+					"object": pspStore[pspName].Object,
+				}
+				localTplFile := "/home/tamal/go/src/kmodules.xyz/catalog-checker/gen-chart/template-psp.yaml"
+				funcMap := sprig.TxtFuncMap()
+				funcMap["toYaml"] = toYAML
+				funcMap["toJson"] = toJSON
+				tpl := template.Must(template.New(filepath.Base(localTplFile)).Funcs(funcMap).ParseFiles(localTplFile))
+				err = tpl.Execute(&buf, &data)
+				if err != nil {
+					panic(err)
+				}
+			}
+
+			filename := filepath.Join(dir, "charts", "kubedb-catalog", "templates", strings.ToLower(dbKind), fmt.Sprintf("%s-psp.yaml", strings.ToLower(dbKind)))
+			err = os.MkdirAll(filepath.Dir(filename), 0755)
 			if err != nil {
 				panic(err)
 			}
-			buf.Write(data)
-		}
 
-		dbKind := strings.TrimSuffix(k.Kind, "Version")
-		filename := filepath.Join(dir, "raw", strings.ToLower(dbKind), fmt.Sprintf("%s-psp.yaml", strings.ToLower(dbKind)))
-		err = os.MkdirAll(filepath.Dir(filename), 0755)
-		if err != nil {
-			panic(err)
-		}
-
-		err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
-		if err != nil {
-			panic(err)
+			err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
+			if err != nil {
+				panic(err)
+			}
 		}
 	}
 }

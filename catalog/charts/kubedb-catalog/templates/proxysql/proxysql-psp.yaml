@@ -1,14 +1,10 @@
+{{ if .Values.catalog.proxysql }}
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
   name: proxysql-db
-  namespace: default
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   allowPrivilegeEscalation: false
   allowedCapabilities:
@@ -28,3 +24,4 @@ spec:
     rule: RunAsAny
   volumes:
   - '*'
+{{ end }}
