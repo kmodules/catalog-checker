@@ -82,6 +82,10 @@ func main() {
 			dbKind := strings.TrimSuffix(obj.GetKind(), "Version")
 			deprecated, _, _ := unstructured.NestedBool(obj.Object, "spec", "deprecated")
 
+			// remove labels
+			obj.SetLabels(nil)
+			obj.SetAnnotations(nil)
+
 			distro, _, _ := unstructured.NestedString(obj.Object, "spec", "distribution")
 			if dbKind == "Elasticsearch" {
 				authPlugin, _, _ := unstructured.NestedString(obj.Object, "spec", "authPlugin")
