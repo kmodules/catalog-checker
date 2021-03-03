@@ -404,10 +404,15 @@ func main() {
 					}
 				}
 
-				filename := filepath.Join(dir, "charts", "kubedb-catalog", "templates", strings.ToLower(dbKind), fmt.Sprintf("%s-%s.yaml", strings.ToLower(dbKind), k.Version))
+				var filenameparts []string
 				if allDeprecated(v) {
-					filename = filepath.Join(dir, "charts", "kubedb-catalog", "templates", strings.ToLower(dbKind), fmt.Sprintf("deprecated-%s-%s.yaml", strings.ToLower(dbKind), k.Version))
+					filenameparts = append(filenameparts, "deprecated")
 				}
+				filenameparts =append(filenameparts, strings.ToLower(dbKind), k.Version)
+				if k.Distro != "" {
+					filenameparts =append(filenameparts, strings.ToLower(k.Distro))
+				}
+				filename := filepath.Join(dir, "charts", "kubedb-catalog", "templates", strings.ToLower(dbKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
 				err = os.MkdirAll(filepath.Dir(filename), 0755)
 				if err != nil {
 					panic(err)

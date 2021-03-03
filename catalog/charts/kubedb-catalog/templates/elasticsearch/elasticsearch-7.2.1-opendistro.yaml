@@ -1,24 +1,20 @@
+{{ if .Values.catalog.elasticsearch }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
+  name: 1.2.1-opendistro
   labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
-  name: 7.0.1-xpack
-  namespace: default
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
-  authPlugin: X-Pack
+  authPlugin: OpenDistro
   db:
-    image: '{{ .Values.image.registry }}/elasticsearch:7.0.1-xpack'
-  distribution: ElasticStack
+    image: '{{ .Values.image.registry }}/elasticsearch:1.2.1-opendistro'
+  distribution: OpenDistro
   exporter:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
   initContainer:
     image: '{{ .Values.image.registry }}/busybox:1.32.0'
-    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:7.0.1-xpack'
+    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:1.2.1-opendistro'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
@@ -27,30 +23,27 @@ spec:
         name: elasticsearch-backup-7.2.0-v6
       restoreTask:
         name: elasticsearch-restore-7.2.0-v6
-  version: 7.0.1
+  version: 7.2.1
+{{ end }}
 
 ---
+{{ if .Values.catalog.elasticsearch }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
+  name: 1.2.1-opendistro-v1
   labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
-  name: 7.0.1-xpack-v1
-  namespace: default
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
-  authPlugin: X-Pack
+  authPlugin: OpenDistro
   db:
-    image: '{{ .Values.image.registry }}/elasticsearch:7.0.1-xpack'
-  distribution: ElasticStack
+    image: '{{ .Values.image.registry }}/elasticsearch:1.2.1-opendistro'
+  distribution: OpenDistro
   exporter:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
   initContainer:
     image: '{{ .Values.image.registry }}/toybox:0.8.4'
-    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:7.0.1-xpack-v1'
+    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:1.2.1-opendistro-v1'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
@@ -59,4 +52,5 @@ spec:
         name: elasticsearch-backup-7.2.0-v6
       restoreTask:
         name: elasticsearch-restore-7.2.0-v6
-  version: 7.0.1
+  version: 7.2.1
+{{ end }}

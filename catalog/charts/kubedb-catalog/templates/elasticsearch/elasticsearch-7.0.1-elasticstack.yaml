@@ -1,14 +1,10 @@
+{{ if .Values.catalog.elasticsearch }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 7.0.1-xpack
-  namespace: default
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: X-Pack
   db:
@@ -28,19 +24,16 @@ spec:
       restoreTask:
         name: elasticsearch-restore-7.2.0-v6
   version: 7.0.1
+{{ end }}
 
 ---
+{{ if .Values.catalog.elasticsearch }}
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  labels:
-    app.kubernetes.io/instance: RELEASE-NAME
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: kubedb-catalog
-    app.kubernetes.io/version: v0.16.2
-    helm.sh/chart: kubedb-catalog-v0.16.2
   name: 7.0.1-xpack-v1
-  namespace: default
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
   authPlugin: X-Pack
   db:
@@ -60,3 +53,4 @@ spec:
       restoreTask:
         name: elasticsearch-restore-7.2.0-v6
   version: 7.0.1
+{{ end }}
