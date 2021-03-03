@@ -7,27 +7,27 @@ metadata:
     app.kubernetes.io/name: kubedb-catalog
     app.kubernetes.io/version: v0.16.2
     helm.sh/chart: kubedb-catalog-v0.16.2
-  name: 1.1.0-opendistro
+  name: 7.9.1-xpack
   namespace: default
 spec:
-  authPlugin: OpenDistro
+  authPlugin: X-Pack
   db:
-    image: '{{ .Values.image.registry }}/elasticsearch:1.1.0-opendistro'
-  distribution: OpenDistro
+    image: kubedb/elasticsearch:7.9.1-xpack
+  distribution: ElasticStack
   exporter:
-    image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
+    image: kubedb/elasticsearch_exporter:1.1.0
   initContainer:
-    image: '{{ .Values.image.registry }}/busybox:1.32.0'
-    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:1.1.0-opendistro'
+    image: kubedb/busybox:1.32.0
+    yqImage: kubedb/elasticsearch-init:7.9.1-xpack
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
     addon:
       backupTask:
-        name: elasticsearch-backup-7.2.0-v6
+        name: elasticsearch-backup-7.3.2-v6
       restoreTask:
-        name: elasticsearch-restore-7.2.0-v6
-  version: 7.1.1
+        name: elasticsearch-restore-7.3.2-v6
+  version: 7.9.1
 
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -39,24 +39,24 @@ metadata:
     app.kubernetes.io/name: kubedb-catalog
     app.kubernetes.io/version: v0.16.2
     helm.sh/chart: kubedb-catalog-v0.16.2
-  name: 1.1.0-opendistro-v1
+  name: 7.9.1-xpack-v1
   namespace: default
 spec:
-  authPlugin: OpenDistro
+  authPlugin: X-Pack
   db:
-    image: '{{ .Values.image.registry }}/elasticsearch:1.1.0-opendistro'
-  distribution: OpenDistro
+    image: kubedb/elasticsearch:7.9.1-xpack
+  distribution: ElasticStack
   exporter:
-    image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
+    image: kubedb/elasticsearch_exporter:1.1.0
   initContainer:
-    image: '{{ .Values.image.registry }}/toybox:0.8.4'
-    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:1.1.0-opendistro-v1'
+    image: kubedb/toybox:0.8.4
+    yqImage: kubedb/elasticsearch-init:7.9.1-xpack-v1
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
     addon:
       backupTask:
-        name: elasticsearch-backup-7.2.0-v6
+        name: elasticsearch-backup-7.3.2-v6
       restoreTask:
-        name: elasticsearch-restore-7.2.0-v6
-  version: 7.1.1
+        name: elasticsearch-restore-7.3.2-v6
+  version: 7.9.1

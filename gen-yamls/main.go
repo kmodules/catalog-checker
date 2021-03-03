@@ -86,21 +86,23 @@ func main() {
 			if dbKind == "Elasticsearch" {
 				authPlugin, _, _ := unstructured.NestedString(obj.Object, "spec", "authPlugin")
 				if distro == "" {
+					distro = authPlugin
 					if authPlugin == "X-Pack" {
-						authPlugin = "ElasticStack"
+						distro = "ElasticStack"
 					}
-					err = unstructured.SetNestedField(obj.Object, authPlugin, "spec", "distribution")
+					err = unstructured.SetNestedField(obj.Object, distro, "spec", "distribution")
 					if err != nil {
 						panic(err)
 					}
 				}
 			} else if dbKind == "MySQL" {
-				err = unstructured.SetNestedField(obj.Object, "Oracle", "spec", "distribution")
+				distro = "Oracle"
+				err = unstructured.SetNestedField(obj.Object, distro, "spec", "distribution")
 				if err != nil {
 					panic(err)
 				}
 			} else if dbKind == "MongoDB" {
-				distro := "MongoDB"
+				distro = "MongoDB"
 				if strings.Contains(strings.ToLower(obj.GetName()), "percona") {
 					distro = "Percona"
 				}

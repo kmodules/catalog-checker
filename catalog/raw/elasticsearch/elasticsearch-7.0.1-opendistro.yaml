@@ -7,18 +7,18 @@ metadata:
     app.kubernetes.io/name: kubedb-catalog
     app.kubernetes.io/version: v0.16.2
     helm.sh/chart: kubedb-catalog-v0.16.2
-  name: 1.1.0-opendistro
+  name: 1.0.2-opendistro
   namespace: default
 spec:
   authPlugin: OpenDistro
   db:
-    image: '{{ .Values.image.registry }}/elasticsearch:1.1.0-opendistro'
+    image: kubedb/elasticsearch:1.0.2-opendistro
   distribution: OpenDistro
   exporter:
-    image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
+    image: kubedb/elasticsearch_exporter:1.1.0
   initContainer:
-    image: '{{ .Values.image.registry }}/busybox:1.32.0'
-    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:1.1.0-opendistro'
+    image: kubedb/busybox:1.32.0
+    yqImage: kubedb/elasticsearch-init:1.0.2-opendistro
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
@@ -27,7 +27,7 @@ spec:
         name: elasticsearch-backup-7.2.0-v6
       restoreTask:
         name: elasticsearch-restore-7.2.0-v6
-  version: 7.1.1
+  version: 7.0.1
 
 ---
 apiVersion: catalog.kubedb.com/v1alpha1
@@ -39,18 +39,18 @@ metadata:
     app.kubernetes.io/name: kubedb-catalog
     app.kubernetes.io/version: v0.16.2
     helm.sh/chart: kubedb-catalog-v0.16.2
-  name: 1.1.0-opendistro-v1
+  name: 1.0.2-opendistro-v1
   namespace: default
 spec:
   authPlugin: OpenDistro
   db:
-    image: '{{ .Values.image.registry }}/elasticsearch:1.1.0-opendistro'
+    image: kubedb/elasticsearch:1.0.2-opendistro
   distribution: OpenDistro
   exporter:
-    image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
+    image: kubedb/elasticsearch_exporter:1.1.0
   initContainer:
-    image: '{{ .Values.image.registry }}/toybox:0.8.4'
-    yqImage: '{{ .Values.image.registry }}/elasticsearch-init:1.1.0-opendistro-v1'
+    image: kubedb/toybox:0.8.4
+    yqImage: kubedb/elasticsearch-init:1.0.2-opendistro-v1
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
   stash:
@@ -59,4 +59,4 @@ spec:
         name: elasticsearch-backup-7.2.0-v6
       restoreTask:
         name: elasticsearch-restore-7.2.0-v6
-  version: 7.1.1
+  version: 7.0.1
