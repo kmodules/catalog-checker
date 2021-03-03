@@ -59,6 +59,7 @@ func main() {
 		Group   string
 		Kind    string
 		Version string
+		Distro string
 	}
 
 	dbStore := map[DbVersion][]*unstructured.Unstructured{}
@@ -117,6 +118,7 @@ func main() {
 				Group:   gv.Group,
 				Kind:    obj.GetKind(),
 				Version: version,
+				Distro: distro,
 			}
 			dbStore[dbverKey] = append(dbStore[dbverKey], obj)
 
@@ -273,10 +275,16 @@ func main() {
 		}
 
 		dbKind := strings.TrimSuffix(k.Kind, "Version")
-		filename := filepath.Join(dir, "raw", strings.ToLower(dbKind), fmt.Sprintf("%s-%s.yaml", strings.ToLower(dbKind), k.Version))
+
+		var filenameparts []string
 		if allDeprecated(v) {
-			filename = filepath.Join(dir, "raw", strings.ToLower(dbKind), fmt.Sprintf("deprecated-%s-%s.yaml", strings.ToLower(dbKind), k.Version))
+			filenameparts = append(filenameparts, "deprecated")
 		}
+		filenameparts =append(filenameparts, strings.ToLower(dbKind), k.Version)
+		if k.Distro != "" {
+			filenameparts =append(filenameparts, strings.ToLower(k.Distro))
+		}
+		filename := filepath.Join(dir, "raw", strings.ToLower(dbKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
 		err = os.MkdirAll(filepath.Dir(filename), 0755)
 		if err != nil {
 			panic(err)
