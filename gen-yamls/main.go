@@ -144,7 +144,7 @@ func main() {
 				}
 				restoreTask, _, _ := unstructured.NestedString(obj.Object, "spec", "stash", "addon", "restoreTask", "name")
 				if restoreTask != "" {
-					restoreTaskStore[backupTask] = append(restoreTaskStore[backupTask], obj.GetName())
+					restoreTaskStore[restoreTask] = append(restoreTaskStore[restoreTask], obj.GetName())
 				}
 			}
 		} else if gv.Group == "policy" {
@@ -182,7 +182,7 @@ func main() {
 	}
 
 	{
-		ds := map[string]string{}
+		//ds := map[string]string{}
 
 		for k, v := range backupTaskStore {
 			versions, err := semvers.SortVersions(v)
@@ -190,10 +190,10 @@ func main() {
 				panic(err)
 			}
 			backupTaskStore[k] = versions
-			ds[k] = versions[0]
+			//ds[k] = versions[0]
 		}
 
-		data, err := json.MarshalIndent(ds, "", "  ")
+		data, err := json.MarshalIndent(backupTaskStore, "", "  ")
 		if err != nil {
 			panic(err)
 		}
@@ -211,7 +211,7 @@ func main() {
 	}
 
 	{
-		ds := map[string]string{}
+		//ds := map[string]string{}
 
 		for k, v := range restoreTaskStore {
 			versions, err := semvers.SortVersions(v)
@@ -219,10 +219,10 @@ func main() {
 				panic(err)
 			}
 			restoreTaskStore[k] = versions
-			ds[k] = versions[0]
+			//ds[k] = versions[0]
 		}
 
-		data, err := json.MarshalIndent(ds, "", "  ")
+		data, err := json.MarshalIndent(restoreTaskStore, "", "  ")
 		if err != nil {
 			panic(err)
 		}
