@@ -12,6 +12,7 @@ metadata:
 spec:
   db:
     image: '{{ .Values.image.registry }}/mysql:8.0.14-v2'
+  distribution: Oracle
   exporter:
     image: '{{ .Values.image.registry }}/mysqld-exporter:v0.11.0'
   initContainer:
@@ -26,8 +27,6 @@ spec:
         name: mysql-backup-8.0.14-v6
       restoreTask:
         name: mysql-restore-8.0.14-v6
-  tools:
-    image: '{{ .Values.image.registry }}/mysql-tools:5.7.25'
   upgradeConstraints:
     denylist:
       groupReplication:
@@ -52,6 +51,7 @@ spec:
   db:
     image: '{{ .Values.image.registry }}/mysql:8.0-v2'
   deprecated: true
+  distribution: Oracle
   exporter:
     image: '{{ .Values.image.registry }}/mysqld-exporter:v0.11.0'
   initContainer:
@@ -60,8 +60,6 @@ spec:
     databasePolicyName: mysql-db
   replicationModeDetector:
     image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
-  tools:
-    image: '{{ .Values.image.registry }}/mysql-tools:8.0-v3'
   upgradeConstraints:
     allowlist:
       groupReplication:
@@ -86,6 +84,7 @@ spec:
   db:
     image: '{{ .Values.image.registry }}/mysql:8.0.14'
   deprecated: true
+  distribution: Oracle
   exporter:
     image: '{{ .Values.image.registry }}/mysqld-exporter:v0.11.0'
   initContainer:
@@ -94,8 +93,6 @@ spec:
     databasePolicyName: mysql-db
   replicationModeDetector:
     image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
-  tools:
-    image: '{{ .Values.image.registry }}/mysql-tools:8.0.14'
   upgradeConstraints:
     allowlist:
       groupReplication:
@@ -120,6 +117,7 @@ spec:
   db:
     image: '{{ .Values.image.registry }}/mysql:8.0.14-v1'
   deprecated: true
+  distribution: Oracle
   exporter:
     image: '{{ .Values.image.registry }}/mysqld-exporter:v0.11.0'
   initContainer:
@@ -128,8 +126,6 @@ spec:
     databasePolicyName: mysql-db
   replicationModeDetector:
     image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
-  tools:
-    image: '{{ .Values.image.registry }}/mysql-tools:5.7.25'
   upgradeConstraints:
     denylist:
       groupReplication:

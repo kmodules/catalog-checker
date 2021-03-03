@@ -9,6 +9,7 @@ spec:
   authPlugin: OpenDistro
   db:
     image: '{{ .Values.image.registry }}/elasticsearch:1.8.0-opendistro'
+  distribution: OpenDistro
   exporter:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
   initContainer:
@@ -37,6 +38,7 @@ spec:
   authPlugin: OpenDistro
   db:
     image: '{{ .Values.image.registry }}/elasticsearch:1.8.0-opendistro'
+  distribution: OpenDistro
   exporter:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
   initContainer:

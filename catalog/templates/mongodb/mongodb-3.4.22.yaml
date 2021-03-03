@@ -12,6 +12,7 @@ metadata:
 spec:
   db:
     image: '{{ .Values.image.registry }}/mongo:3.4.22-v1'
+  distribution: MongoDB
   exporter:
     image: '{{ .Values.image.registry }}/percona-mongodb-exporter:v0.8.0'
   initContainer:
@@ -26,8 +27,6 @@ spec:
         name: mongodb-backup-3.4.22-v5
       restoreTask:
         name: mongodb-restore-3.4.22-v5
-  tools:
-    image: '{{ .Values.image.registry }}/mongo-tools:3.4.22'
   version: 3.4.22
 
 ---
@@ -46,6 +45,7 @@ spec:
   db:
     image: '{{ .Values.image.registry }}/mongo:3.4-v4'
   deprecated: true
+  distribution: MongoDB
   exporter:
     image: '{{ .Values.image.registry }}/percona-mongodb-exporter:v0.8.0'
   initContainer:
@@ -54,8 +54,6 @@ spec:
     databasePolicyName: mongodb-db
   replicationModeDetector:
     image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
-  tools:
-    image: '{{ .Values.image.registry }}/mongo-tools:3.4-v4'
   version: 3.4.22
 
 ---
@@ -74,6 +72,7 @@ spec:
   db:
     image: '{{ .Values.image.registry }}/mongo:3.4-v5'
   deprecated: true
+  distribution: MongoDB
   exporter:
     image: '{{ .Values.image.registry }}/percona-mongodb-exporter:v0.8.0'
   initContainer:
@@ -82,8 +81,6 @@ spec:
     databasePolicyName: mongodb-db
   replicationModeDetector:
     image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
-  tools:
-    image: '{{ .Values.image.registry }}/mongo-tools:3.4-v4'
   version: 3.4.22
 
 ---
@@ -102,6 +99,7 @@ spec:
   db:
     image: '{{ .Values.image.registry }}/mongo:3.4.22'
   deprecated: true
+  distribution: MongoDB
   exporter:
     image: '{{ .Values.image.registry }}/percona-mongodb-exporter:v0.8.0'
   initContainer:
@@ -110,6 +108,4 @@ spec:
     databasePolicyName: mongodb-db
   replicationModeDetector:
     image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
-  tools:
-    image: '{{ .Values.image.registry }}/mongo-tools:3.4.22'
   version: 3.4.22

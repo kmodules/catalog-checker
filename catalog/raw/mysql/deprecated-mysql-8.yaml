@@ -13,6 +13,7 @@ spec:
   db:
     image: kubedb/mysql:8
   deprecated: true
+  distribution: Oracle
   exporter:
     image: kubedb/operator:0.8.0
   initContainer:
@@ -21,8 +22,6 @@ spec:
     databasePolicyName: mysql-db
   replicationModeDetector:
     image: kubedb/replication-mode-detector:v0.3.2
-  tools:
-    image: kubedb/mysql-tools:8
   upgradeConstraints:
     allowlist:
       groupReplication:
@@ -47,6 +46,7 @@ spec:
   db:
     image: kubedb/mysql:8-v1
   deprecated: true
+  distribution: Oracle
   exporter:
     image: kubedb/mysqld-exporter:v0.11.0
   initContainer:
@@ -55,8 +55,6 @@ spec:
     databasePolicyName: mysql-db
   replicationModeDetector:
     image: kubedb/replication-mode-detector:v0.3.2
-  tools:
-    image: kubedb/mysql-tools:8-v2
   upgradeConstraints:
     allowlist:
       groupReplication:

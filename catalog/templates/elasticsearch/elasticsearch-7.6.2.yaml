@@ -13,6 +13,7 @@ spec:
   authPlugin: X-Pack
   db:
     image: '{{ .Values.image.registry }}/elasticsearch:7.6.2-xpack'
+  distribution: ElasticStack
   exporter:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
   initContainer:
@@ -44,6 +45,7 @@ spec:
   authPlugin: X-Pack
   db:
     image: '{{ .Values.image.registry }}/elasticsearch:7.6.2-xpack'
+  distribution: ElasticStack
   exporter:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
   initContainer:

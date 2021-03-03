@@ -22,8 +22,6 @@ spec:
         name: postgres-backup-11.9.0-v4
       restoreTask:
         name: postgres-restore-11.9.0-v4
-  tools:
-    image: '{{ .Values.image.registry }}/postgres-tools:11.1'
   version: "11.1"
 
 ---
@@ -51,8 +49,6 @@ spec:
         name: postgres-backup-11.9.0-v4
       restoreTask:
         name: postgres-restore-11.9.0-v4
-  tools:
-    image: '{{ .Values.image.registry }}/postgres-tools:11.1'
   version: "11.1"
 
 ---
@@ -80,8 +76,6 @@ spec:
         name: postgres-backup-11.9.0-v4
       restoreTask:
         name: postgres-restore-11.9.0-v4
-  tools:
-    image: '{{ .Values.image.registry }}/postgres-tools:11.1'
   version: "11.1"
 
 ---
@@ -109,6 +103,4 @@ spec:
         name: postgres-backup-11.9.0-v4
       restoreTask:
         name: postgres-restore-11.9.0-v4
-  tools:
-    image: '{{ .Values.image.registry }}/postgres-tools:11.1'
   version: "11.1"

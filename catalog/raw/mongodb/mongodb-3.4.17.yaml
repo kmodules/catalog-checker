@@ -12,6 +12,7 @@ metadata:
 spec:
   db:
     image: kubedb/mongo:3.4.17-v1
+  distribution: MongoDB
   exporter:
     image: kubedb/percona-mongodb-exporter:v0.8.0
   initContainer:
@@ -26,8 +27,6 @@ spec:
         name: mongodb-backup-3.4.17-v5
       restoreTask:
         name: mongodb-restore-3.4.17-v5
-  tools:
-    image: kubedb/mongo-tools:3.4.17
   version: 3.4.17
 
 ---
@@ -46,6 +45,7 @@ spec:
   db:
     image: kubedb/mongo:3.4.17
   deprecated: true
+  distribution: MongoDB
   exporter:
     image: kubedb/percona-mongodb-exporter:v0.8.0
   initContainer:
@@ -54,6 +54,4 @@ spec:
     databasePolicyName: mongodb-db
   replicationModeDetector:
     image: kubedb/replication-mode-detector:v0.3.2
-  tools:
-    image: kubedb/mongo-tools:3.4.17
   version: 3.4.17

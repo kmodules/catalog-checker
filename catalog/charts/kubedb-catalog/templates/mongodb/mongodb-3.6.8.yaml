@@ -8,6 +8,7 @@ metadata:
 spec:
   db:
     image: '{{ .Values.image.registry }}/mongo:3.6.8-v1'
+  distribution: MongoDB
   exporter:
     image: '{{ .Values.image.registry }}/percona-mongodb-exporter:v0.8.0'
   initContainer:
@@ -22,8 +23,6 @@ spec:
         name: mongodb-backup-3.6.8-v5
       restoreTask:
         name: mongodb-restore-3.6.8-v5
-  tools:
-    image: '{{ .Values.image.registry }}/mongo-tools:3.6.8'
   version: 3.6.8
 {{ end }}
 
@@ -39,6 +38,7 @@ spec:
   db:
     image: '{{ .Values.image.registry }}/mongo:3.6.8'
   deprecated: true
+  distribution: MongoDB
   exporter:
     image: '{{ .Values.image.registry }}/percona-mongodb-exporter:v0.8.0'
   initContainer:
@@ -47,7 +47,5 @@ spec:
     databasePolicyName: mongodb-db
   replicationModeDetector:
     image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
-  tools:
-    image: '{{ .Values.image.registry }}/mongo-tools:3.6.8'
   version: 3.6.8
 {{ end }}

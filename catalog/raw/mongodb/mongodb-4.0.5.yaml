@@ -12,6 +12,7 @@ metadata:
 spec:
   db:
     image: kubedb/mongo:4.0.5-v3
+  distribution: MongoDB
   exporter:
     image: kubedb/percona-mongodb-exporter:v0.8.0
   initContainer:
@@ -26,8 +27,6 @@ spec:
         name: mongodb-backup-4.0.5-v5
       restoreTask:
         name: mongodb-restore-4.0.5-v5
-  tools:
-    image: kubedb/mongo-tools:4.0.5-v2
   version: 4.0.5
 
 ---
@@ -46,6 +45,7 @@ spec:
   db:
     image: kubedb/mongo:4.0
   deprecated: true
+  distribution: MongoDB
   exporter:
     image: kubedb/mongodb_exporter:v1.0.0
   initContainer:
@@ -54,8 +54,6 @@ spec:
     databasePolicyName: mongodb-db
   replicationModeDetector:
     image: kubedb/replication-mode-detector:v0.3.2
-  tools:
-    image: kubedb/mongo-tools:4.0
   version: 4.0.5
 
 ---
@@ -74,6 +72,7 @@ spec:
   db:
     image: kubedb/mongo:4.0-v1
   deprecated: true
+  distribution: MongoDB
   exporter:
     image: kubedb/mongodb_exporter:v1.0.0
   initContainer:
@@ -82,8 +81,6 @@ spec:
     databasePolicyName: mongodb-db
   replicationModeDetector:
     image: kubedb/replication-mode-detector:v0.3.2
-  tools:
-    image: kubedb/mongo-tools:4.0-v1
   version: 4.0.5
 
 ---
@@ -102,6 +99,7 @@ spec:
   db:
     image: kubedb/mongo:4.0.5
   deprecated: true
+  distribution: MongoDB
   exporter:
     image: kubedb/mongodb_exporter:v1.0.0
   initContainer:
@@ -110,8 +108,6 @@ spec:
     databasePolicyName: mongodb-db
   replicationModeDetector:
     image: kubedb/replication-mode-detector:v0.3.2
-  tools:
-    image: kubedb/mongo-tools:4.0.5
   version: 4.0.5
 
 ---
@@ -130,6 +126,7 @@ spec:
   db:
     image: kubedb/mongo:4.0.5-v1
   deprecated: true
+  distribution: MongoDB
   exporter:
     image: kubedb/mongodb_exporter:v1.0.0
   initContainer:
@@ -138,8 +135,6 @@ spec:
     databasePolicyName: mongodb-db
   replicationModeDetector:
     image: kubedb/replication-mode-detector:v0.3.2
-  tools:
-    image: kubedb/mongo-tools:4.0.5-v1
   version: 4.0.5
 
 ---
@@ -158,6 +153,7 @@ spec:
   db:
     image: kubedb/mongo:4.0.5-v2
   deprecated: true
+  distribution: MongoDB
   exporter:
     image: kubedb/percona-mongodb-exporter:v0.8.0
   initContainer:
@@ -166,6 +162,4 @@ spec:
     databasePolicyName: mongodb-db
   replicationModeDetector:
     image: kubedb/replication-mode-detector:v0.3.2
-  tools:
-    image: kubedb/mongo-tools:4.0.5-v2
   version: 4.0.5

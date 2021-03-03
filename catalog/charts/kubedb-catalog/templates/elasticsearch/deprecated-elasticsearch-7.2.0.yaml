@@ -10,6 +10,7 @@ spec:
   db:
     image: '{{ .Values.image.registry }}/elasticsearch:7.2'
   deprecated: true
+  distribution: ElasticStack
   exporter:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.0.2'
   initContainer:
@@ -17,8 +18,6 @@ spec:
     yqImage: '{{ .Values.image.registry }}/yq:2.4.0'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
-  tools:
-    image: '{{ .Values.image.registry }}/elasticsearch-tools:7.2'
   version: 7.2.0
 {{ end }}
 
@@ -35,6 +34,7 @@ spec:
   db:
     image: '{{ .Values.image.registry }}/elasticsearch:7.2.0'
   deprecated: true
+  distribution: ElasticStack
   exporter:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.0.2'
   initContainer:
@@ -42,7 +42,5 @@ spec:
     yqImage: '{{ .Values.image.registry }}/yq:2.4.0'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
-  tools:
-    image: '{{ .Values.image.registry }}/elasticsearch-tools:7.2.0'
   version: 7.2.0
 {{ end }}

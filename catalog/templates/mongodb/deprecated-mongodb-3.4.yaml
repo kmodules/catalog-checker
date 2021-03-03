@@ -13,6 +13,7 @@ spec:
   db:
     image: '{{ .Values.image.registry }}/mongo:3.4'
   deprecated: true
+  distribution: MongoDB
   exporter:
     image: '{{ .Values.image.registry }}/operator:0.8.0'
   initContainer:
@@ -21,8 +22,6 @@ spec:
     databasePolicyName: mongodb-db
   replicationModeDetector:
     image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
-  tools:
-    image: '{{ .Values.image.registry }}/mongo-tools:3.4'
   version: "3.4"
 
 ---
@@ -41,6 +40,7 @@ spec:
   db:
     image: '{{ .Values.image.registry }}/mongo:3.4-v1'
   deprecated: true
+  distribution: MongoDB
   exporter:
     image: '{{ .Values.image.registry }}/mongodb_exporter:v1.0.0'
   initContainer:
@@ -49,8 +49,6 @@ spec:
     databasePolicyName: mongodb-db
   replicationModeDetector:
     image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
-  tools:
-    image: '{{ .Values.image.registry }}/mongo-tools:3.4-v2'
   version: "3.4"
 
 ---
@@ -69,6 +67,7 @@ spec:
   db:
     image: '{{ .Values.image.registry }}/mongo:3.4-v2'
   deprecated: true
+  distribution: MongoDB
   exporter:
     image: '{{ .Values.image.registry }}/mongodb_exporter:v1.0.0'
   initContainer:
@@ -77,8 +76,6 @@ spec:
     databasePolicyName: mongodb-db
   replicationModeDetector:
     image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
-  tools:
-    image: '{{ .Values.image.registry }}/mongo-tools:3.4-v2'
   version: "3.4"
 
 ---
@@ -97,6 +94,7 @@ spec:
   db:
     image: '{{ .Values.image.registry }}/mongo:3.4-v3'
   deprecated: true
+  distribution: MongoDB
   exporter:
     image: '{{ .Values.image.registry }}/mongodb_exporter:v1.0.0'
   initContainer:
@@ -105,6 +103,4 @@ spec:
     databasePolicyName: mongodb-db
   replicationModeDetector:
     image: '{{ .Values.image.registry }}/replication-mode-detector:v0.3.2'
-  tools:
-    image: '{{ .Values.image.registry }}/mongo-tools:3.4-v3'
   version: "3.4"

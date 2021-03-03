@@ -10,6 +10,7 @@ spec:
   db:
     image: '{{ .Values.image.registry }}/elasticsearch:6.4'
   deprecated: true
+  distribution: SearchGuard
   exporter:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.0.2'
   initContainer:
@@ -17,7 +18,5 @@ spec:
     yqImage: '{{ .Values.image.registry }}/yq:2.4.0'
   podSecurityPolicies:
     databasePolicyName: elasticsearch-db
-  tools:
-    image: '{{ .Values.image.registry }}/elasticsearch-tools:6.4-v1'
   version: "6.4"
 {{ end }}

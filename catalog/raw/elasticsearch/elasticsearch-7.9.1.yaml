@@ -13,6 +13,7 @@ spec:
   authPlugin: OpenDistro
   db:
     image: kubedb/elasticsearch:1.10.1-opendistro
+  distribution: OpenDistro
   exporter:
     image: kubedb/elasticsearch_exporter:1.1.0
   initContainer:
@@ -44,6 +45,7 @@ spec:
   authPlugin: OpenDistro
   db:
     image: kubedb/elasticsearch:1.11.0-opendistro
+  distribution: OpenDistro
   exporter:
     image: kubedb/elasticsearch_exporter:1.1.0
   initContainer:
@@ -75,6 +77,7 @@ spec:
   authPlugin: X-Pack
   db:
     image: kubedb/elasticsearch:7.9.1-xpack
+  distribution: ElasticStack
   exporter:
     image: kubedb/elasticsearch_exporter:1.1.0
   initContainer:
@@ -106,6 +109,7 @@ spec:
   authPlugin: X-Pack
   db:
     image: kubedb/elasticsearch:7.9.1-xpack
+  distribution: ElasticStack
   exporter:
     image: kubedb/elasticsearch_exporter:1.1.0
   initContainer:

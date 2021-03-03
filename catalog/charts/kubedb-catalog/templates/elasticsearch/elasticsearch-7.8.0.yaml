@@ -9,6 +9,7 @@ spec:
   authPlugin: OpenDistro
   db:
     image: '{{ .Values.image.registry }}/elasticsearch:1.9.0-opendistro'
+  distribution: OpenDistro
   exporter:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
   initContainer:
@@ -37,6 +38,7 @@ spec:
   authPlugin: OpenDistro
   db:
     image: '{{ .Values.image.registry }}/elasticsearch:1.9.0-opendistro'
+  distribution: OpenDistro
   exporter:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
   initContainer:
@@ -65,6 +67,7 @@ spec:
   authPlugin: X-Pack
   db:
     image: '{{ .Values.image.registry }}/elasticsearch:7.8.0-xpack'
+  distribution: ElasticStack
   exporter:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
   initContainer:
@@ -93,6 +96,7 @@ spec:
   authPlugin: X-Pack
   db:
     image: '{{ .Values.image.registry }}/elasticsearch:7.8.0-xpack'
+  distribution: ElasticStack
   exporter:
     image: '{{ .Values.image.registry }}/elasticsearch_exporter:1.1.0'
   initContainer:

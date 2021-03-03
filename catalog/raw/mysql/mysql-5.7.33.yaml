@@ -12,6 +12,7 @@ metadata:
 spec:
   db:
     image: kubedb/mysql:5.7.33
+  distribution: Oracle
   exporter:
     image: kubedb/mysqld-exporter:v0.11.0
   initContainer:
@@ -26,8 +27,6 @@ spec:
         name: mysql-backup-5.7.25-v6
       restoreTask:
         name: mysql-restore-5.7.25-v6
-  tools:
-    image: kubedb/mysql-tools:5.7.25
   upgradeConstraints:
     denylist:
       groupReplication:

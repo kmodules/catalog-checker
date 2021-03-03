@@ -81,6 +81,34 @@ func main() {
 			dbKind := strings.TrimSuffix(obj.GetKind(), "Version")
 			deprecated, _, _ := unstructured.NestedBool(obj.Object, "spec", "deprecated")
 
+			distro, _, _ := unstructured.NestedString(obj.Object, "spec", "distribution")
+			if dbKind == "Elasticsearch" {
+				authPlugin, _, _ := unstructured.NestedString(obj.Object, "spec", "authPlugin")
+				if distro == "" {
+					if authPlugin == "X-Pack" {
+						authPlugin = "ElasticStack"
+					}
+					err = unstructured.SetNestedField(obj.Object, authPlugin, "spec", "distribution")
+					if err != nil {
+						panic(err)
+					}
+				}
+			} else if dbKind == "MySQL" {
+				err = unstructured.SetNestedField(obj.Object, "Oracle", "spec", "distribution")
+				if err != nil {
+					panic(err)
+				}
+			} else if dbKind == "MongoDB" {
+				distro := "MongoDB"
+				if strings.Contains(strings.ToLower(obj.GetName()), "percona") {
+					distro = "Percona"
+				}
+				err = unstructured.SetNestedField(obj.Object, distro, "spec", "distribution")
+				if err != nil {
+					panic(err)
+				}
+			}
+
 			version, _, err := unstructured.NestedString(obj.Object, "spec", "version")
 			if err != nil {
 				panic(err)
