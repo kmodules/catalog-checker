@@ -2,7 +2,7 @@
 apiVersion: {{ .object.apiVersion }}
 kind: {{ .object.kind }}
 metadata:
-  name: {{ .object.metadata.name }}
+  name: '{{ .object.metadata.name }}'
   labels:
     {{"{{- include \"kubedb-catalog.labels\" . | nindent 4 }}"}}
 spec:

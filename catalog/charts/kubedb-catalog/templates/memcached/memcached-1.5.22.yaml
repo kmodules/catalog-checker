@@ -2,7 +2,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MemcachedVersion
 metadata:
-  name: 1.5.22
+  name: '1.5.22'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:

@@ -2,7 +2,7 @@
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: mysql-db
+  name: 'mysql-db'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:

@@ -2,7 +2,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PerconaXtraDBVersion
 metadata:
-  name: 5.7-cluster
+  name: '5.7-cluster'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -28,7 +28,7 @@ spec:
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PerconaXtraDBVersion
 metadata:
-  name: 5.7
+  name: '5.7'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:

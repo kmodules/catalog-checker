@@ -2,7 +2,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
-  name: 3.4.22-v1
+  name: '3.4.22-v1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -31,7 +31,7 @@ spec:
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
-  name: 3.4-v4
+  name: '3.4-v4'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -55,7 +55,7 @@ spec:
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
-  name: 3.4-v5
+  name: '3.4-v5'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -79,7 +79,7 @@ spec:
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MongoDBVersion
 metadata:
-  name: 3.4.22
+  name: '3.4.22'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:

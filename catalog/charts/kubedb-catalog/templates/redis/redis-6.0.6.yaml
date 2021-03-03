@@ -2,7 +2,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: RedisVersion
 metadata:
-  name: 6.0.6
+  name: '6.0.6'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:

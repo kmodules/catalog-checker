@@ -2,7 +2,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: 6.3.0
+  name: '6.3.0'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -26,7 +26,7 @@ spec:
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: ElasticsearchVersion
 metadata:
-  name: 6.3.0-v1
+  name: '6.3.0-v1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:

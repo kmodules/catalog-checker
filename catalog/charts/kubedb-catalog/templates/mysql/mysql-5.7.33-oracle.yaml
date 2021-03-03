@@ -2,7 +2,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: 5.7.33
+  name: '5.7.33'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:

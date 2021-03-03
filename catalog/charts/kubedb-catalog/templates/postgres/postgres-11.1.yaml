@@ -2,7 +2,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: 11.1
+  name: '11.1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -26,7 +26,7 @@ spec:
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: 11.1-v1
+  name: '11.1-v1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -50,7 +50,7 @@ spec:
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: 11.1-v2
+  name: '11.1-v2'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -74,7 +74,7 @@ spec:
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PostgresVersion
 metadata:
-  name: 11.1-v3
+  name: '11.1-v3'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:

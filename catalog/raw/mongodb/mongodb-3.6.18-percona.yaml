@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   db:
-    image: percona/percona-server-mongodb:3.6.18
+    image: kubedb/percona-server-mongodb:3.6.18
   distribution: Percona
   exporter:
     image: kubedb/percona-mongodb-exporter:v0.8.0

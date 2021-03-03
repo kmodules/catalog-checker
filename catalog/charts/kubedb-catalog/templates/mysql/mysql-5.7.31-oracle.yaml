@@ -2,7 +2,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: 5.7.31-v1
+  name: '5.7.31-v1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -37,7 +37,7 @@ spec:
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: 5.7.31
+  name: '5.7.31'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:

@@ -2,7 +2,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MariaDBVersion
 metadata:
-  name: 10.4.17
+  name: '10.4.17'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:

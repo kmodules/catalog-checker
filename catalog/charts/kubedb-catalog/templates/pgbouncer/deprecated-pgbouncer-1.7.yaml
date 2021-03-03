@@ -2,7 +2,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: PgBouncerVersion
 metadata:
-  name: 1.7
+  name: '1.7'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:

@@ -2,7 +2,7 @@
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: 8.0.3-v2
+  name: '8.0.3-v2'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -37,7 +37,7 @@ spec:
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: 8.0-v1
+  name: '8.0-v1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -67,7 +67,7 @@ spec:
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: 8.0.3
+  name: '8.0.3'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
@@ -97,7 +97,7 @@ spec:
 apiVersion: catalog.kubedb.com/v1alpha1
 kind: MySQLVersion
 metadata:
-  name: 8.0.3-v1
+  name: '8.0.3-v1'
   labels:
     {{- include "kubedb-catalog.labels" . | nindent 4 }}
 spec:
