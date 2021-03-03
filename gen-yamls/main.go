@@ -73,7 +73,7 @@ func CompareFullVersions(vi FullVersion, vj FullVersion) bool {
 
 	vci, _ := semver.NewVersion(vi.CatalogName)
 	vcj, _ := semver.NewVersion(vj.CatalogName)
-	return vci.Compare(vcj) < 0
+	return semvers.CompareVersions(vci, vcj)
 }
 
 func main() {
