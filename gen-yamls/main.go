@@ -25,6 +25,57 @@ import (
 
 var reg = hub.NewRegistryOfKnownResources()
 
+type DB struct {
+	Group string
+	Kind  string
+}
+type DbVersion struct {
+	Group   string
+	Kind    string
+	Version string
+	Distro  string
+}
+
+type FullVersion struct {
+	Version     string
+	CatalogName string
+}
+
+// FullverCollection is a collection of Version instances and implements the sort
+// interface. See the sort package for more details.
+// https://golang.org/pkg/sort/
+type FullverCollection []FullVersion
+
+// Len returns the length of a collection. The number of Version instances
+// on the slice.
+func (c FullverCollection) Len() int {
+	return len(c)
+}
+
+// Less is needed for the sort interface to compare two Version objects on the
+// slice. If checks if one is less than the other.
+func (c FullverCollection) Less(i, j int) bool {
+	return CompareFullVersions(c[i], c[j])
+}
+
+// Swap is needed for the sort interface to replace the Version objects
+// at two different positions in the slice.
+func (c FullverCollection) Swap(i, j int) {
+	c[i], c[j] = c[j], c[i]
+}
+
+func CompareFullVersions(vi FullVersion, vj FullVersion) bool {
+	vvi, _ := semver.NewVersion(vi.Version)
+	vvj, _ := semver.NewVersion(vj.Version)
+	if result := vvi.Compare(vvj); result != 0 {
+		return result < 0
+	}
+
+	vci, _ := semver.NewVersion(vi.CatalogName)
+	vcj, _ := semver.NewVersion(vj.CatalogName)
+	return vci.Compare(vcj) < 0
+}
+
 func main() {
 	sh := shell.NewSession()
 	sh.SetDir(os.ExpandEnv("$HOME/go/src/kubedb.dev/installer"))
@@ -51,23 +102,12 @@ func main() {
 		panic(err)
 	}
 
-	type DB struct {
-		Group string
-		Kind  string
-	}
-	type DbVersion struct {
-		Group   string
-		Kind    string
-		Version string
-		Distro string
-	}
-
 	dbStore := map[DbVersion][]*unstructured.Unstructured{}
 	pspForDBs := map[DB]sets.String{}
 	pspStore := map[string]*unstructured.Unstructured{}
 
 	// active versions
-	activeDBVersions := map[string][]string{}
+	activeDBVersions := map[string][]FullVersion{}
 	// backupTask -> db version
 	backupTaskStore := map[string][]string{}
 	// recoveryTask -> db version
@@ -124,7 +164,7 @@ func main() {
 				Group:   gv.Group,
 				Kind:    obj.GetKind(),
 				Version: version,
-				Distro: distro,
+				Distro:  distro,
 			}
 			dbStore[dbverKey] = append(dbStore[dbverKey], obj)
 
@@ -144,7 +184,10 @@ func main() {
 			}
 
 			if !deprecated {
-				activeDBVersions[dbKind] = append(activeDBVersions[dbKind], obj.GetName())
+				activeDBVersions[dbKind] = append(activeDBVersions[dbKind], FullVersion{
+					Version:     version,
+					CatalogName: obj.GetName(),
+				})
 
 				backupTask, _, _ := unstructured.NestedString(obj.Object, "spec", "stash", "addon", "backupTask", "name")
 				if backupTask != "" {
@@ -164,15 +207,18 @@ func main() {
 	}
 
 	{
+		activeVers := map[string][]string{}
+
 		for k, v := range activeDBVersions {
-			versions, err := semvers.SortVersions(v)
-			if err != nil {
-				panic(err)
+			sort.Sort(sort.Reverse(FullverCollection(v)))
+			activeDBVersions[k] = v
+
+			for _, e := range v {
+				activeVers[k] = append(activeVers[k], e.CatalogName)
 			}
-			activeDBVersions[k] = versions
 		}
 
-		data, err := json.MarshalIndent(activeDBVersions, "", "  ")
+		data, err := json.MarshalIndent(activeVers, "", "  ")
 		if err != nil {
 			panic(err)
 		}
@@ -286,9 +332,9 @@ func main() {
 		if allDeprecated(v) {
 			filenameparts = append(filenameparts, "deprecated")
 		}
-		filenameparts =append(filenameparts, strings.ToLower(dbKind), k.Version)
+		filenameparts = append(filenameparts, strings.ToLower(dbKind), k.Version)
 		if k.Distro != "" {
-			filenameparts =append(filenameparts, strings.ToLower(k.Distro))
+			filenameparts = append(filenameparts, strings.ToLower(k.Distro))
 		}
 		filename := filepath.Join(dir, "raw", strings.ToLower(dbKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
 		err = os.MkdirAll(filepath.Dir(filename), 0755)
@@ -356,35 +402,6 @@ func main() {
 			}
 
 			{
-				var buf bytes.Buffer
-				for i, obj := range v {
-					if i > 0 {
-						buf.WriteString("\n---\n")
-					}
-					data, err := yaml.Marshal(obj)
-					if err != nil {
-						panic(err)
-					}
-					buf.Write(data)
-				}
-
-				dbKind := strings.TrimSuffix(k.Kind, "Version")
-				filename := filepath.Join(dir, "templates", strings.ToLower(dbKind), fmt.Sprintf("%s-%s.yaml", strings.ToLower(dbKind), k.Version))
-				if allDeprecated(v) {
-					filename = filepath.Join(dir, "templates", strings.ToLower(dbKind), fmt.Sprintf("deprecated-%s-%s.yaml", strings.ToLower(dbKind), k.Version))
-				}
-				err = os.MkdirAll(filepath.Dir(filename), 0755)
-				if err != nil {
-					panic(err)
-				}
-
-				err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
-				if err != nil {
-					panic(err)
-				}
-			}
-
-			{
 				dbKind := strings.TrimSuffix(k.Kind, "Version")
 
 				var buf bytes.Buffer
@@ -412,9 +429,9 @@ func main() {
 				if allDeprecated(v) {
 					filenameparts = append(filenameparts, "deprecated")
 				}
-				filenameparts =append(filenameparts, strings.ToLower(dbKind), k.Version)
+				filenameparts = append(filenameparts, strings.ToLower(dbKind), k.Version)
 				if k.Distro != "" {
-					filenameparts =append(filenameparts, strings.ToLower(k.Distro))
+					filenameparts = append(filenameparts, strings.ToLower(k.Distro))
 				}
 				filename := filepath.Join(dir, "charts", "kubedb-catalog", "templates", strings.ToLower(dbKind), fmt.Sprintf("%s.yaml", strings.Join(filenameparts, "-")))
 				err = os.MkdirAll(filepath.Dir(filename), 0755)
