@@ -223,7 +223,7 @@ func main() {
 			panic(err)
 		}
 
-		filename := filepath.Join(dir, "active_dbs.json")
+		filename := filepath.Join(dir, "active_versions.json")
 		err = os.MkdirAll(filepath.Dir(filename), 0755)
 		if err != nil {
 			panic(err)
