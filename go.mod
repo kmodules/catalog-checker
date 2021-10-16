@@ -10,7 +10,7 @@ require (
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/mitchellh/copystructure v1.1.1 // indirect
 	k8s.io/apimachinery v0.18.9
-	kmodules.xyz/client-go v0.0.0-20210220080427-fd7308e30bb4
+	kmodules.xyz/client-go 1fbfd52e78c9016d9c7b25067a51ed80f55b3ebc
 	kmodules.xyz/resource-metadata v0.4.13
 	sigs.k8s.io/yaml v1.2.0
 )
