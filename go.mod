@@ -8,9 +8,11 @@ require (
 	github.com/Masterminds/sprig v2.22.0+incompatible
 	github.com/codeskyblue/go-sh v0.0.0-20200712050446-30169cf553fe
 	github.com/huandu/xstrings v1.3.2 // indirect
+	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/mitchellh/copystructure v1.1.1 // indirect
-	k8s.io/apimachinery v0.18.9
-	kmodules.xyz/client-go 1fbfd52e78c9016d9c7b25067a51ed80f55b3ebc
+	github.com/modern-go/reflect2 v1.0.2 // indirect
+	k8s.io/apimachinery v0.21.1
+	kmodules.xyz/client-go v0.0.0-20211013093146-1fbfd52e78c9
 	kmodules.xyz/resource-metadata v0.4.13
 	sigs.k8s.io/yaml v1.2.0
 )
