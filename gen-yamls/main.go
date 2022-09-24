@@ -229,7 +229,7 @@ func main() {
 			panic(err)
 		}
 
-		err = ioutil.WriteFile(filename, data, 0644)
+		err = os.WriteFile(filename, data, 0644)
 		if err != nil {
 			panic(err)
 		}
@@ -258,7 +258,7 @@ func main() {
 			panic(err)
 		}
 
-		err = ioutil.WriteFile(filename, data, 0644)
+		err = os.WriteFile(filename, data, 0644)
 		if err != nil {
 			panic(err)
 		}
@@ -287,7 +287,7 @@ func main() {
 			panic(err)
 		}
 
-		err = ioutil.WriteFile(filename, data, 0644)
+		err = os.WriteFile(filename, data, 0644)
 		if err != nil {
 			panic(err)
 		}
@@ -342,7 +342,7 @@ func main() {
 			panic(err)
 		}
 
-		err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
+		err = os.WriteFile(filename, buf.Bytes(), 0644)
 		if err != nil {
 			panic(err)
 		}
@@ -372,7 +372,7 @@ func main() {
 			panic(err)
 		}
 
-		err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
+		err = os.WriteFile(filename, buf.Bytes(), 0644)
 		if err != nil {
 			panic(err)
 		}
@@ -439,7 +439,7 @@ func main() {
 					panic(err)
 				}
 
-				err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
+				err = os.WriteFile(filename, buf.Bytes(), 0644)
 				if err != nil {
 					panic(err)
 				}
@@ -484,7 +484,7 @@ func main() {
 				panic(err)
 			}
 
-			err = ioutil.WriteFile(filename, buf.Bytes(), 0644)
+			err = os.WriteFile(filename, buf.Bytes(), 0644)
 			if err != nil {
 				panic(err)
 			}
