@@ -30,7 +30,7 @@ func loadCustomData(defaultFile, env, readErrorMessage string, parser CustomData
 		return
 	}
 
-	b, err := ioutil.ReadFile(path)
+	b, err := os.ReadFile(path)
 	if err != nil {
 		fmt.Printf("%s %s (%s)\n", readErrorMessage, path, err)
 		return

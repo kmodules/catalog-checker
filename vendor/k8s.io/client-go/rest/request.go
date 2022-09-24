@@ -404,7 +404,7 @@ func (r *Request) Body(obj interface{}) *Request {
 	}
 	switch t := obj.(type) {
 	case string:
-		data, err := ioutil.ReadFile(t)
+		data, err := os.ReadFile(t)
 		if err != nil {
 			r.err = err
 			return r
@@ -938,7 +938,7 @@ func (r *Request) Do(ctx context.Context) Result {
 func (r *Request) DoRaw(ctx context.Context) ([]byte, error) {
 	var result Result
 	err := r.request(ctx, func(req *http.Request, resp *http.Response) {
-		result.body, result.err = ioutil.ReadAll(resp.Body)
+		result.body, result.err = io.ReadAll(resp.Body)
 		glogBody("Response Body", result.body)
 		if resp.StatusCode < http.StatusOK || resp.StatusCode > http.StatusPartialContent {
 			result.err = r.transformUnstructuredResponseError(resp, req, result.body)
@@ -954,7 +954,7 @@ func (r *Request) DoRaw(ctx context.Context) ([]byte, error) {
 func (r *Request) transformResponse(resp *http.Response, req *http.Request) Result {
 	var body []byte
 	if resp.Body != nil {
-		data, err := ioutil.ReadAll(resp.Body)
+		data, err := io.ReadAll(resp.Body)
 		switch err.(type) {
 		case nil:
 			body = data
@@ -1093,7 +1093,7 @@ const maxUnstructuredResponseTextBytes = 2048
 // TODO: introduce transformation of generic http.Client.Do() errors that separates 4.
 func (r *Request) transformUnstructuredResponseError(resp *http.Response, req *http.Request, body []byte) error {
 	if body == nil && resp.Body != nil {
-		if data, err := ioutil.ReadAll(&io.LimitedReader{R: resp.Body, N: maxUnstructuredResponseTextBytes}); err == nil {
+		if data, err := io.ReadAll(&io.LimitedReader{R: resp.Body, N: maxUnstructuredResponseTextBytes}); err == nil {
 			body = data
 		}
 	}
