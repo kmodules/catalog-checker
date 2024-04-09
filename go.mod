@@ -7,16 +7,24 @@ require (
 	github.com/Masterminds/semver v1.5.0
 	github.com/Masterminds/sprig v2.22.0+incompatible
 	github.com/codeskyblue/go-sh v0.0.0-20200712050446-30169cf553fe
+	github.com/docker/cli v24.0.9+incompatible
+	github.com/docker/docker v24.0.9+incompatible
+	github.com/golang/protobuf v1.5.4
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/mitchellh/copystructure v1.1.1 // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
-	go.bytebuilders.dev/license-proxyserver v0.0.3
+	go.bytebuilders.dev/audit v0.0.33
+	go.bytebuilders.dev/license-proxyserver v0.0.9
+	go.bytebuilders.dev/license-verifier v0.14.0
+	go.bytebuilders.dev/license-verifier/kubernetes v0.14.0
 	golang.org/x/crypto v0.6.0
-	golang.org/x/net v0.7.0
+	golang.org/x/net v0.23.0
+	gomodules.xyz/password-generator v0.2.9
+	google.golang.org/protobuf v1.33.0
 	k8s.io/apimachinery v0.21.1
-	kmodules.xyz/client-go v0.0.0-20211013093146-1fbfd52e78c9
-	kmodules.xyz/resource-metadata v0.4.13
+	kmodules.xyz/client-go v0.29.13
+	kmodules.xyz/resource-metadata v0.18.2
 	sigs.k8s.io/yaml v1.2.0
 )
 
